@@ -243,7 +243,7 @@ const equipment = {
   tools: TroubleshootingTools,
 }
 
-export default function SkillModule3D({ module, selected, onSelect }) {
+export default function SkillModule3D({ module, selected, onNavigate }) {
   const group = useRef()
   const [hovered, setHovered] = useState(false)
   const active = hovered || selected
@@ -269,27 +269,26 @@ export default function SkillModule3D({ module, selected, onSelect }) {
       position={module.position}
       onClick={(event) => {
         event.stopPropagation()
-        onSelect(module)
+        onNavigate(module)
       }}
       onPointerOver={(event) => setPointerState(event, true)}
       onPointerOut={(event) => setPointerState(event, false)}
     >
       <Equipment active={active} accent={module.accent} />
-      {(hovered || selected) && (
-        <Html center position={[0, 2.85, 0]} distanceFactor={9}>
-          <button
-            className="equipment-tooltip"
-            type="button"
-            onClick={(event) => {
-              event.stopPropagation()
-              onSelect(module)
-            }}
-          >
-            <span>{module.shortLabel}</span>
-            <strong>Open skill details</strong>
-          </button>
-        </Html>
-      )}
+      <Html transform sprite center position={[0, 0.28, 0.72]} distanceFactor={8.5}>
+        <button
+          className={`equipment-nameplate ${active ? 'active' : ''}`}
+          type="button"
+          onClick={(event) => {
+            event.stopPropagation()
+            onNavigate(module)
+          }}
+          aria-label={`Navigate to ${module.title}`}
+        >
+          <span>{module.shortLabel}</span>
+          <i aria-hidden="true" />
+        </button>
+      </Html>
     </group>
   )
 }

@@ -1,15 +1,24 @@
-import { Suspense, useCallback, useState } from 'react'
-import { Canvas } from '@react-three/fiber'
+import { Suspense, useCallback, useEffect, useRef, useState } from 'react'
+import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { Grid, Html, Line, OrbitControls, RoundedBox } from '@react-three/drei'
-import SkillDetailModal from './SkillDetailModal'
+import { Vector3 } from 'three'
 import SkillModule3D from './SkillModule3D'
 import { skillHubModules } from './skillHubData'
+
+const overviewCamera = new Vector3(7.6, 5.4, 9.2)
+const overviewTarget = new Vector3(0, 0.25, 0)
 
 const signalPaths = [
   [[-2.4, 0.38, -0.85], [-1.25, 0.38, -0.85], [-1.25, 0.38, -1.4], [-0.7, 0.38, -1.4]],
   [[0.7, 0.4, -1.45], [1.25, 0.4, -1.45], [1.25, 0.4, -0.75], [1.8, 0.4, -0.75]],
   [[1.9, 0.4, -0.3], [1.9, 0.4, 0.65], [2.15, 0.4, 0.65]],
   [[-1.25, 0.38, -0.45], [-1.25, 0.38, 0.5], [-1.45, 0.38, 0.5]],
+]
+
+const utilityNavigation = [
+  { label: 'Projects', target: 'projects' },
+  { label: 'Resume', target: 'resume' },
+  { label: 'Contact', target: 'contact' },
 ]
 
 function Workbench() {
@@ -44,7 +53,49 @@ function Workbench() {
   )
 }
 
-function MechatronicsScene({ selectedModule, onSelect }) {
+function CameraDirector({ focusModule, focusRevision, controls }) {
+  const { camera } = useThree()
+  const moving = useRef(false)
+  const destination = useRef(overviewCamera.clone())
+  const lookAt = useRef(overviewTarget.clone())
+
+  useEffect(() => {
+    if (focusModule) {
+      const [x, , z] = focusModule.position
+      lookAt.current.set(x, 0.15, z)
+      destination.current.set(x + 3.35, 2.9, z + 4.25)
+    } else {
+      lookAt.current.copy(overviewTarget)
+      destination.current.copy(overviewCamera)
+    }
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches && controls.current) {
+      camera.position.copy(destination.current)
+      controls.current.target.copy(lookAt.current)
+      controls.current.update()
+      moving.current = false
+      return
+    }
+    moving.current = true
+  }, [camera, controls, focusModule, focusRevision])
+
+  useFrame((_, delta) => {
+    if (!moving.current || !controls.current) return
+    const smoothing = 1 - Math.exp(-delta * 4.2)
+    camera.position.lerp(destination.current, smoothing)
+    controls.current.target.lerp(lookAt.current, smoothing)
+    controls.current.update()
+
+    if (camera.position.distanceTo(destination.current) < 0.045 && controls.current.target.distanceTo(lookAt.current) < 0.035) {
+      moving.current = false
+    }
+  })
+
+  return null
+}
+
+function MechatronicsScene({ focusModule, focusRevision, onNavigate }) {
+  const controls = useRef()
+
   return (
     <>
       <color attach="background" args={['#090d10']} />
@@ -64,25 +115,26 @@ function MechatronicsScene({ selectedModule, onSelect }) {
             color={index === 1 ? '#9bea63' : '#758486'}
             lineWidth={1.15}
             transparent
-            opacity={0.5}
+            opacity={focusModule ? 0.7 : 0.42}
           />
         ))}
         {skillHubModules.map((module) => (
           <SkillModule3D
             key={module.id}
             module={module}
-            selected={selectedModule?.id === module.id}
-            onSelect={onSelect}
+            selected={focusModule?.id === module.id}
+            onNavigate={onNavigate}
           />
         ))}
       </group>
 
       <OrbitControls
+        ref={controls}
         makeDefault
         target={[0, 0.25, 0]}
         enableDamping
         dampingFactor={0.07}
-        minDistance={7}
+        minDistance={6.2}
         maxDistance={13.5}
         minPolarAngle={Math.PI * 0.22}
         maxPolarAngle={Math.PI * 0.48}
@@ -92,46 +144,77 @@ function MechatronicsScene({ selectedModule, onSelect }) {
         rotateSpeed={0.5}
         zoomSpeed={0.65}
       />
+      <CameraDirector focusModule={focusModule} focusRevision={focusRevision} controls={controls} />
     </>
   )
 }
 
+function revealSection(targetId) {
+  const section = document.getElementById(targetId)
+  if (!section) return
+  section.classList.remove('section-arriving')
+  section.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  window.setTimeout(() => section.classList.add('section-arriving'), 250)
+  window.setTimeout(() => section.classList.remove('section-arriving'), 1450)
+}
+
 export default function SkillHub3D() {
-  const [selectedModule, setSelectedModule] = useState(null)
-  const closeModal = useCallback(() => setSelectedModule(null), [])
+  const [focusModule, setFocusModule] = useState(null)
+  const [focusRevision, setFocusRevision] = useState(0)
+
+  const navigateToModule = useCallback((module) => {
+    setFocusModule(module)
+    setFocusRevision((revision) => revision + 1)
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    window.setTimeout(() => revealSection(module.sectionId), reducedMotion ? 0 : 850)
+  }, [])
+
+  const navigateToUtility = useCallback((target) => {
+    setFocusModule(null)
+    setFocusRevision((revision) => revision + 1)
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    window.setTimeout(() => revealSection(target), reducedMotion ? 0 : 450)
+  }, [])
 
   return (
-    <>
-      <section className="skill-hub skill-hub-3d" aria-labelledby="skill-hub-title">
-        <div className="skill-hub-heading">
-          <span>INTERACTIVE PROCESS-CONTROL STATION</span>
-          <h2 id="skill-hub-title">Mechatronics Workbench</h2>
-          <p>Inspect the equipment to see the training and skills behind each system.</p>
+    <section className="skill-hub skill-hub-3d" aria-labelledby="skill-hub-title">
+      <div className="skill-hub-heading">
+        <span>GUIDED 3D PORTFOLIO NAVIGATION</span>
+        <h2 id="skill-hub-title">Mechatronics Workbench</h2>
+        <p>Choose a system and move directly into the matching technical chapter.</p>
+      </div>
+      <div className="skill-canvas" aria-label="Interactive 3D mechatronics portfolio navigation">
+        <Canvas shadows dpr={[1, 1.6]} camera={{ position: [7.6, 5.4, 9.2], fov: 38 }}>
+          <Suspense fallback={<Html center><span className="canvas-loading">Loading 3D lab...</span></Html>}>
+            <MechatronicsScene focusModule={focusModule} focusRevision={focusRevision} onNavigate={navigateToModule} />
+          </Suspense>
+        </Canvas>
+        <div className="scene-callout">
+          <span>GUIDED SKILL EXPLORER</span>
+          <strong>Select a nameplate to focus the equipment and open its full chapter.</strong>
         </div>
-        <div className="skill-canvas" aria-label="Interactive 3D mechatronics process-control workbench">
-          <Canvas shadows dpr={[1, 1.6]} camera={{ position: [7.6, 5.4, 9.2], fov: 38 }}>
-            <Suspense fallback={<Html center><span className="canvas-loading">Loading 3D lab...</span></Html>}>
-              <MechatronicsScene selectedModule={selectedModule} onSelect={setSelectedModule} />
-            </Suspense>
-          </Canvas>
-          <div className="scene-callout">
-            <span>LIVE SKILL EXPLORER</span>
-            <strong>Click the PLC module or inspect the process trainer.</strong>
-          </div>
-        </div>
-        <div className="skill-hub-footer">
-          <span>Explore the lab: drag, zoom, and click equipment.</span>
-        </div>
-        <div className="skill-hub-access">
-          <span>Equipment shortcuts</span>
-          {skillHubModules.map((module) => (
-            <button key={module.id} type="button" onClick={() => setSelectedModule(module)}>
-              {module.shortLabel}
-            </button>
-          ))}
-        </div>
-      </section>
-      {selectedModule && <SkillDetailModal module={selectedModule} onClose={closeModal} />}
-    </>
+      </div>
+      <div className="skill-hub-footer">
+        <span>Drag to inspect the station. Select a category to continue.</span>
+      </div>
+      <nav className="skill-hub-access" aria-label="Technical portfolio shortcuts">
+        <span>Explore</span>
+        {skillHubModules.map((module) => (
+          <button
+            className={focusModule?.id === module.id ? 'active' : ''}
+            key={module.id}
+            type="button"
+            onClick={() => navigateToModule(module)}
+          >
+            {module.title}
+          </button>
+        ))}
+        {utilityNavigation.map((item) => (
+          <button key={item.target} type="button" onClick={() => navigateToUtility(item.target)}>
+            {item.label}
+          </button>
+        ))}
+      </nav>
+    </section>
   )
 }

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import SkillHub3D from './components/SkillHub3D'
+import { skillHubModules } from './components/skillHubData'
 import {
   ArrowDown,
   ArrowUpRight,
@@ -9,16 +10,13 @@ import {
   CheckCircle2,
   ChevronRight,
   CircleGauge,
-  Cpu,
   Download,
   GraduationCap,
   HardHat,
   Mail,
   Menu,
   Ruler,
-  Settings,
   SlidersHorizontal,
-  Wrench,
   X,
   Zap,
 } from 'lucide-react'
@@ -29,46 +27,8 @@ const navItems = [
   ['Projects', 'projects'],
   ['Experience', 'experience'],
   ['Education', 'education'],
+  ['Resume', 'resume'],
   ['References', 'references'],
-]
-
-const skills = [
-  {
-    icon: Cpu,
-    number: '01',
-    title: 'PLC / Controls',
-    items: ['Studio 5000 / Logix 5000', 'Ladder Logic', 'SFC', 'I/O troubleshooting', 'Sensors & actuators'],
-  },
-  {
-    icon: SlidersHorizontal,
-    number: '02',
-    title: 'Instrumentation',
-    items: ['Flow', 'Level', 'Pressure', 'Temperature', 'Precision instruments', 'Process monitoring'],
-  },
-  {
-    icon: Zap,
-    number: '03',
-    title: 'Electrical / Motor Controls',
-    items: ['Motor control circuits', 'Relays', 'Contactors', 'Overloads', 'VFD basics', 'Schematics'],
-  },
-  {
-    icon: CircleGauge,
-    number: '04',
-    title: 'Mechanical / Fluid Power',
-    items: ['Pneumatics', 'Hydraulics', 'Cylinders', 'Solenoid valves', 'Actuators', 'Mechanical alignment'],
-  },
-  {
-    icon: Bot,
-    number: '05',
-    title: 'Robotics / Automation',
-    items: ['Robotics lab experience', 'FANUC basics', 'Automated sequences', 'Sensors', 'Actuators', 'Industrial systems'],
-  },
-  {
-    icon: Wrench,
-    number: '06',
-    title: 'Troubleshooting / Tools',
-    items: ['Multimeter', 'Precision instruments', 'Wiring checks', 'Schematics', 'Maintenance basics', 'Safe troubleshooting'],
-  },
 ]
 
 const recruiterHighlights = [
@@ -152,6 +112,15 @@ const projects = [
   },
 ]
 
+const skillProjectLinks = {
+  'plc-control': ['PLC / MPS Automation System', 'Automation Lab & Documentation'],
+  instrumentation: ['Process Instrumentation Trainer', 'Instrumentation Lab'],
+  'motor-controls': ['Motor Controls Lab', 'Electrical Controls Lab'],
+  'fluid-power': ['Pneumatics / Hydraulics Lab', 'Fluid Power Training'],
+  'robotics-automation': ['Robotics Lab', 'Robotics Training'],
+  'troubleshooting-tools': ['Electrical Troubleshooting & Schematics', 'Diagnostic Lab'],
+}
+
 function SectionHeading({ eyebrow, title, text }) {
   return (
     <div className="section-heading reveal">
@@ -190,6 +159,59 @@ function Header() {
         {open ? <X /> : <Menu />}
       </button>
     </header>
+  )
+}
+
+function SkillChapters() {
+  return (
+    <section className="skill-chapters" id="skills" aria-label="Technical skill chapters">
+      <div className="chapter-intro">
+        <span>01-06 / TECHNICAL SYSTEMS</span>
+        <h2>From signals<br />to machine behavior.</h2>
+        <p>
+          Six connected areas from my coursework and lab training. Each chapter shows the practical foundation,
+          tools, and system thinking I am building for technician work.
+        </p>
+      </div>
+      {skillHubModules.map((module, index) => {
+        const Icon = module.icon
+        const [projectTitle, projectType] = skillProjectLinks[module.id]
+        return (
+          <article
+            className={`skill-chapter reveal ${index % 2 ? 'chapter-reverse' : ''}`}
+            id={module.sectionId}
+            key={module.id}
+          >
+            <div className="chapter-index">
+              <span>0{index + 1}</span>
+              <Icon aria-hidden="true" />
+            </div>
+            <div className="chapter-title">
+              <p>{module.shortLabel}</p>
+              <h2>{module.title}</h2>
+              <p className="chapter-description">{module.description}</p>
+            </div>
+            <div className="chapter-details">
+              <span className="chapter-label">HANDS-ON FOUNDATION</span>
+              <ul>
+                {module.bullets.map((bullet) => (
+                  <li key={bullet}><CheckCircle2 size={16} />{bullet}</li>
+                ))}
+              </ul>
+              <div className="chapter-tools">
+                {module.related.map((skill) => <span key={skill}>{skill}</span>)}
+              </div>
+              <a className="chapter-project" href="#projects">
+                <span>RELATED LAB EXAMPLE</span>
+                <strong>{projectTitle}</strong>
+                <small>{projectType}</small>
+                <ArrowDown size={18} />
+              </a>
+            </div>
+          </article>
+        )
+      })}
+    </section>
   )
 }
 
@@ -254,6 +276,8 @@ function App() {
           </div>
         </section>
 
+        <SkillChapters />
+
         <section className="section about" id="about">
           <div className="about-layout">
             <SectionHeading eyebrow="ABOUT ME" title={<>Built to understand<br />how things work.</>} />
@@ -283,23 +307,6 @@ function App() {
                 </div>
               </div>
             </div>
-          </div>
-        </section>
-
-        <section className="section skills-section" id="skills">
-          <SectionHeading
-            eyebrow="TECHNICAL TOOLKIT"
-            title="Skills built on the lab floor."
-            text="A practical foundation across the electrical, mechanical, and controls systems that keep modern production moving."
-          />
-          <div className="skills-grid">
-            {skills.map(({ icon: Icon, number, title, items }) => (
-              <article className="skill-card reveal" key={title}>
-                <div className="card-head"><Icon /><span>{number}</span></div>
-                <h3>{title}</h3>
-                <ul>{items.map((item) => <li key={item}>{item}</li>)}</ul>
-              </article>
-            ))}
           </div>
         </section>
 
@@ -385,6 +392,22 @@ function App() {
               <h3>References available upon request.</h3>
               <p>To protect personal contact information, reference details are shared directly during the hiring process.</p>
               <a className="button secondary" href="#contact">Request References <ArrowDown size={17} /></a>
+            </div>
+          </div>
+        </section>
+
+        <section className="section resume-section" id="resume">
+          <div className="resume-number" aria-hidden="true">CV</div>
+          <div className="resume-copy reveal">
+            <span className="eyebrow"><span>//</span> RESUME</span>
+            <h2>A practical record of training, work, and education.</h2>
+            <p>
+              Review my current resume for education, technical coursework, operations experience, and the
+              technician roles I am pursuing.
+            </p>
+            <div className="resume-actions">
+              <a className="button primary" href="/resume.pdf" target="_blank" rel="noreferrer">View Resume <ArrowUpRight size={17} /></a>
+              <a className="button secondary" href="/resume.pdf" download="Yousif-Al-Abbasi-Resume.pdf">Download Resume <Download size={17} /></a>
             </div>
           </div>
         </section>

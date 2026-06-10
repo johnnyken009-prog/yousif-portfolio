@@ -3,6 +3,7 @@ import { Bot, CircleGauge, Cpu, SlidersHorizontal, Wrench, Zap } from 'lucide-re
 export const skillHubModules = [
   {
     id: 'plc-control',
+    sectionId: 'skill-plc-control',
     title: 'PLC Control',
     shortLabel: 'PLC',
     equipment: 'plc',
@@ -23,6 +24,7 @@ export const skillHubModules = [
   },
   {
     id: 'instrumentation',
+    sectionId: 'skill-instrumentation',
     title: 'Instrumentation',
     shortLabel: 'Instruments',
     equipment: 'instrumentation',
@@ -42,6 +44,7 @@ export const skillHubModules = [
   },
   {
     id: 'motor-controls',
+    sectionId: 'skill-motor-controls',
     title: 'Motor Controls',
     shortLabel: 'Motors',
     equipment: 'motor',
@@ -61,6 +64,7 @@ export const skillHubModules = [
   },
   {
     id: 'fluid-power',
+    sectionId: 'skill-fluid-power',
     title: 'Pneumatics / Hydraulics',
     shortLabel: 'Fluid Power',
     equipment: 'fluid',
@@ -80,6 +84,7 @@ export const skillHubModules = [
   },
   {
     id: 'robotics-automation',
+    sectionId: 'skill-robotics-automation',
     title: 'Robotics / Automation',
     shortLabel: 'Robotics',
     equipment: 'robot',
@@ -99,6 +104,7 @@ export const skillHubModules = [
   },
   {
     id: 'troubleshooting-tools',
+    sectionId: 'skill-troubleshooting-tools',
     title: 'Troubleshooting Tools',
     shortLabel: 'Tools',
     equipment: 'tools',
