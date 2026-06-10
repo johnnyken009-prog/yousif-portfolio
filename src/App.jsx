@@ -1,10 +1,8 @@
 import { useEffect, useState } from 'react'
 import {
-  Activity,
   ArrowDown,
   ArrowUpRight,
   Bot,
-  Boxes,
   BriefcaseBusiness,
   Cable,
   CheckCircle2,
@@ -16,7 +14,9 @@ import {
   HardHat,
   Mail,
   Menu,
+  Ruler,
   Settings,
+  SlidersHorizontal,
   Wrench,
   X,
   Zap,
@@ -35,7 +35,7 @@ const skills = [
     icon: Cpu,
     number: '01',
     title: 'PLCs & Controls',
-    items: ['Studio 5000', 'Logix 5000 basics', 'Ladder logic', 'I/O systems', 'Sensors & actuators'],
+    items: ['Studio 5000 / Logix 5000', 'Ladder logic', 'SFC', 'I/O systems', 'Sensors & actuators'],
   },
   {
     icon: Zap,
@@ -66,6 +66,18 @@ const skills = [
     number: '06',
     title: 'Maintenance & Diagnostics',
     items: ['Equipment diagnosis', 'Device testing', 'Reading diagrams', 'Root-cause thinking', 'Work documentation'],
+  },
+  {
+    icon: SlidersHorizontal,
+    number: '07',
+    title: 'Process Instrumentation',
+    items: ['Flow measurement', 'Level measurement', 'Pressure measurement', 'Temperature measurement', 'Four-variable training equipment'],
+  },
+  {
+    icon: Ruler,
+    number: '08',
+    title: 'Precision Instruments',
+    items: ['Dial indicators', 'Measurement checks', 'Alignment verification', 'Component inspection', 'Careful documentation'],
   },
 ]
 
@@ -153,8 +165,11 @@ function Header() {
   return (
     <header className="site-header">
       <a className="brand" href="#top" aria-label="Yousif Al-Abbasi home">
-        <span className="brand-mark">YA</span>
-        <span>YOUSIF<span className="brand-dot">.</span>CC</span>
+        <span className="brand-mark" aria-hidden="true">
+          <span>YA</span>
+          <i />
+        </span>
+        <span className="brand-name">Yousif<span className="brand-dot">.</span>cc</span>
       </a>
       <nav className={open ? 'nav open' : 'nav'} aria-label="Primary navigation">
         {navItems.map(([label, id]) => (
@@ -175,53 +190,83 @@ function Header() {
   )
 }
 
-function ControlPanel() {
+function TechnicalSchematic() {
   return (
-    <div className="control-wrap" aria-label="Animated industrial control system illustration">
-      <div className="orbit orbit-one" />
-      <div className="orbit orbit-two" />
-      <div className="control-panel">
-        <div className="panel-top">
-          <span>SYSTEM CONTROL</span>
-          <div className="status"><i /> ONLINE</div>
-        </div>
-        <div className="panel-screen">
-          <div className="screen-header">
-            <span>PLC // MAIN_PROCESS</span>
-            <span>RUN</span>
-          </div>
-          <div className="ladder">
-            {[0, 1, 2, 3].map((row) => (
-              <div className="ladder-row" key={row}>
-                <i />
-                <span className={`contact ${row === 1 ? 'off' : ''}`}>] [</span>
-                <b />
-                <span className="coil">( )</span>
-                <i />
-              </div>
-            ))}
-          </div>
-          <div className="screen-footer">
-            <span>I/O STATUS</span>
-            <div>{[1, 1, 0, 1, 0, 1].map((on, i) => <i className={on ? 'on' : ''} key={i} />)}</div>
-          </div>
-        </div>
-        <div className="panel-controls">
-          <div className="gauge">
-            <div className="gauge-face"><span>72</span><small>PSI</small></div>
-            <p>AIR PRESSURE</p>
-          </div>
-          <div className="panel-buttons">
-            <div><i className="green" /><span>RUN</span></div>
-            <div><i className="amber" /><span>RESET</span></div>
-            <div><i className="red" /><span>STOP</span></div>
-          </div>
-        </div>
-        <div className="screw tl">+</div><div className="screw tr">+</div>
-        <div className="screw bl">+</div><div className="screw br">+</div>
+    <div className="schematic-wrap" aria-label="Process automation and instrumentation schematic">
+      <div className="schematic-heading">
+        <span>PROCESS CONTROL // TRAINING SYSTEM</span>
+        <span>DWG 01</span>
       </div>
-      <div className="floating-label label-one"><Activity size={14} /> SIGNAL ACTIVE</div>
-      <div className="floating-label label-two"><CheckCircle2 size={14} /> SYSTEM NOMINAL</div>
+      <svg className="schematic" viewBox="0 0 620 520" role="img" aria-labelledby="schematic-title">
+        <title id="schematic-title">Blueprint diagram connecting a PLC to flow, level, pressure, and temperature instrumentation</title>
+        <g className="schematic-grid-lines">
+          {[80, 160, 240, 320, 400, 480, 560].map((x) => <line key={`x-${x}`} x1={x} y1="0" x2={x} y2="520" />)}
+          {[70, 140, 210, 280, 350, 420, 490].map((y) => <line key={`y-${y}`} x1="0" y1={y} x2="620" y2={y} />)}
+        </g>
+
+        <g className="process-lines">
+          <path d="M82 260H188M290 260H388M484 260H550" />
+          <path d="M238 210V122H455V176" />
+          <path d="M238 310V402H455V344" />
+        </g>
+
+        <g className="instrument instrument-flow">
+          <circle cx="82" cy="260" r="34" />
+          <path d="M65 260h34M91 250l10 10-10 10" />
+          <text x="82" y="315">FLOW</text>
+          <text x="82" y="329">FT-101</text>
+        </g>
+
+        <g className="plc-block">
+          <rect x="188" y="210" width="102" height="100" rx="3" />
+          <text x="239" y="247">PLC</text>
+          <text x="239" y="266">LOGIX 5000</text>
+          <g className="io-points">
+            {[226, 244, 262, 280, 298].map((y) => <circle key={y} cx="198" cy={y} r="3" />)}
+          </g>
+          <path d="M216 286h46M216 294h31" />
+        </g>
+
+        <g className="process-vessel">
+          <path d="M388 196h96v128h-96zM398 196c0-24 76-24 76 0M398 324c0 24 76 24 76 0" />
+          <path className="liquid-line" d="M389 278h94" />
+          <text x="436" y="247">PROCESS</text>
+          <text x="436" y="263">VESSEL</text>
+        </g>
+
+        <g className="instrument instrument-level">
+          <circle cx="455" cy="122" r="30" />
+          <text x="455" y="119">LT</text>
+          <text x="455" y="135">102</text>
+          <text x="455" y="80">LEVEL</text>
+        </g>
+
+        <g className="instrument instrument-pressure">
+          <circle cx="455" cy="402" r="30" />
+          <text x="455" y="399">PT</text>
+          <text x="455" y="415">103</text>
+          <text x="455" y="458">PRESSURE</text>
+        </g>
+
+        <g className="instrument instrument-temp">
+          <circle cx="550" cy="260" r="34" />
+          <path d="M550 242v27M543 269a7 7 0 1 0 14 0" />
+          <text x="550" y="315">TEMPERATURE</text>
+          <text x="550" y="329">TT-104</text>
+        </g>
+
+        <g className="signal-notes">
+          <text x="118" y="248">4-20 mA</text>
+          <text x="306" y="248">CONTROL SIGNAL</text>
+          <text x="298" y="114">LEVEL INPUT</text>
+          <text x="298" y="421">PRESSURE INPUT</text>
+        </g>
+      </svg>
+      <div className="schematic-legend">
+        <span><i /> PLC CONTROL</span>
+        <span><i /> FIELD INSTRUMENTS</span>
+        <span><i /> PROCESS LOOP</span>
+      </div>
     </div>
   )
 }
@@ -245,11 +290,15 @@ function App() {
           <div className="hero-copy">
             <div className="availability"><i /> AVAILABLE FOR INTERNSHIPS & ENTRY-LEVEL ROLES</div>
             <p className="hero-kicker">MECHATRONICS <span>/</span> AUTOMATION <span>/</span> MAINTENANCE</p>
+            <div className="hero-targets">
+              <span>Controls Technician</span>
+              <span>Instrumentation Technician</span>
+            </div>
             <h1>Yousif<br /><span>Al-Abbasi.</span></h1>
-            <p className="hero-title">Mechatronics Student <span>|</span> Automation & Industrial Maintenance</p>
+            <p className="hero-title">Mechatronics Student <span>|</span> Automation <span>|</span> Industrial Maintenance <span>|</span> Controls <span>|</span> Instrumentation</p>
             <p className="hero-intro">
-              Hands-on mechatronics student focused on PLCs, motor controls, robotics, pneumatics, hydraulics,
-              troubleshooting, and industrial automation.
+              Hands-on mechatronics student focused on PLCs, motor controls, robotics, process instrumentation,
+              pneumatics, hydraulics, troubleshooting, and industrial automation.
             </p>
             <div className="hero-actions">
               <a className="button primary" href="#projects">View Projects <ArrowDown size={17} /></a>
@@ -257,9 +306,9 @@ function App() {
               <a className="text-link" href="#contact">Contact Me <ArrowUpRight size={16} /></a>
             </div>
           </div>
-          <ControlPanel />
+          <TechnicalSchematic />
           <div className="hero-meta">
-            <span>BASED IN GEORGIA, USA</span>
+            <span>BASED IN SNELLVILLE, GA</span>
             <span className="scroll-cue">SCROLL TO EXPLORE <ArrowDown size={14} /></span>
           </div>
         </section>
@@ -274,18 +323,20 @@ function App() {
               </p>
               <p>
                 My hands-on training spans industrial automation, electrical troubleshooting, PLCs, motor
-                controls, robotics, pneumatics and hydraulics, sensors, actuators, and maintenance fundamentals.
+                controls, process instrumentation, robotics, pneumatics and hydraulics, sensors, actuators,
+                precision instruments, and maintenance fundamentals. I have trained with equipment measuring
+                the four core process variables: flow, level, pressure, and temperature.
                 I approach equipment methodically: understand the process, isolate the issue, test safely, and
                 document the result.
               </p>
               <p>
-                I&apos;m building toward a career as a maintenance, automation, PLC, controls, or mechatronics
-                technician where I can keep learning and contribute on the floor from day one.
+                I&apos;m building toward a career as a maintenance, automation, PLC, controls, instrumentation,
+                or mechatronics technician where I can keep learning and contribute on the floor from day one.
               </p>
               <div className="target-roles">
                 <span>CAREER TARGETS</span>
                 <div>
-                  {['Maintenance Technician', 'Automation Technician', 'PLC Technician', 'Controls Technician'].map((role) => (
+                  {['Maintenance Technician', 'Automation Technician', 'PLC Technician', 'Controls Technician', 'Instrumentation Technician'].map((role) => (
                     <p key={role}><ChevronRight size={15} /> {role}</p>
                   ))}
                 </div>
@@ -403,7 +454,10 @@ function App() {
       </main>
 
       <footer>
-        <a className="brand footer-brand" href="#top"><span className="brand-mark">YA</span><span>YOUSIF<span className="brand-dot">.</span>CC</span></a>
+        <a className="brand footer-brand" href="#top">
+          <span className="brand-mark" aria-hidden="true"><span>YA</span><i /></span>
+          <span className="brand-name">Yousif<span className="brand-dot">.</span>cc</span>
+        </a>
         <p>Mechatronics / Automation / Industrial Maintenance</p>
         <div className="footer-links">
           <a href="https://www.linkedin.com/in/yousifala/" target="_blank" rel="noreferrer">LinkedIn <ArrowUpRight size={13} /></a>
