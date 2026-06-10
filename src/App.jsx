@@ -253,7 +253,7 @@ function App() {
             </p>
             <div className="hero-actions">
               <a className="button primary" href="#projects">View Projects <ArrowDown size={17} /></a>
-              <a className="button secondary" href="/resume.pdf" download>Resume <Download size={17} /></a>
+              <a className="button secondary" href="/resume.pdf" download="Yousif-Al-Abbasi-Resume.pdf">Resume <Download size={17} /></a>
               <a className="text-link" href="#contact">Contact Me <ArrowUpRight size={16} /></a>
             </div>
           </div>
@@ -341,7 +341,7 @@ function App() {
               <div className="timeline-icon"><BriefcaseBusiness /></div>
               <div className="timeline-date">OPERATIONS & LEADERSHIP</div>
               <div>
-                <h3>Process Assistant</h3>
+                <h3>Process Guide</h3>
                 <h4>Amazon</h4>
                 <p>Supported daily workflow, coordinated team priorities, helped resolve process issues, and communicated operational needs in a fast-moving environment.</p>
               </div>
@@ -365,15 +365,16 @@ function App() {
               <div className="education-icon"><GraduationCap /></div>
               <span>COMPLETED</span>
               <h3>Gwinnett Technical College</h3>
-              <p>AAS in Mechatronics</p>
-              <p>Mechatronics Technician Certificate</p>
+              <p>AAS in Mechatronics, 2026</p>
+              <p>Mechatronics Technician Certificate, 2026</p>
               <div className="education-line" />
             </article>
             <article className="education-card reveal">
               <div className="education-icon"><HardHat /></div>
-              <span>IN PROGRESS</span>
+              <span>INCOMING FALL 2026</span>
               <h3>Kennesaw State University</h3>
-              <p>Mechatronics Engineering Student</p>
+              <p>B.S. Mechatronics Engineering</p>
+              <p>Expected 2029</p>
               <div className="education-line" />
             </article>
           </div>
@@ -395,7 +396,7 @@ function App() {
             </a>
             <div className="contact-actions">
               <a className="button light" href="mailto:yousifabassi2015@gmail.com">Start a Conversation <ArrowUpRight size={17} /></a>
-              <a className="button outline-light" href="/resume.pdf" download>Download Resume <Download size={17} /></a>
+              <a className="button outline-light" href="/resume.pdf" download="Yousif-Al-Abbasi-Resume.pdf">Download Resume <Download size={17} /></a>
             </div>
           </div>
         </section>
@@ -405,9 +406,8 @@ function App() {
         <a className="brand footer-brand" href="#top"><span className="brand-mark">YA</span><span>YOUSIF<span className="brand-dot">.</span>CC</span></a>
         <p>Mechatronics / Automation / Industrial Maintenance</p>
         <div className="footer-links">
-          {/* TODO: Replace # with Yousif's LinkedIn and GitHub profile URLs. */}
-          <a href="#" aria-label="LinkedIn profile placeholder">LinkedIn <ArrowUpRight size={13} /></a>
-          <a href="#" aria-label="GitHub profile placeholder">GitHub <ArrowUpRight size={13} /></a>
+          <a href="https://www.linkedin.com/in/yousifala/" target="_blank" rel="noreferrer">LinkedIn <ArrowUpRight size={13} /></a>
+          <a href="https://github.com/johnnyken009-prog" target="_blank" rel="noreferrer">GitHub <ArrowUpRight size={13} /></a>
           <a href="mailto:yousifabassi2015@gmail.com">Email <ArrowUpRight size={13} /></a>
         </div>
         <span className="copyright">&copy; {new Date().getFullYear()} Yousif Al-Abbasi</span>

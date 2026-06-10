@@ -17,9 +17,10 @@ npm run build
 
 ## Personalize
 
-- Replace `public/resume.pdf` with Yousif's real resume PDF. Keep the same filename so both download buttons continue to work.
-- Replace the LinkedIn and GitHub placeholder links near the bottom of `src/App.jsx`.
+- The general mechatronics resume downloaded by the site is stored at `public/resume.pdf`.
+- LinkedIn and GitHub links are configured near the bottom of `src/App.jsx`.
 - Edit project, skill, work, or education content in the data arrays at the top of `src/App.jsx`.
+- No profile photo is currently used; the technical control-panel hero remains the primary visual.
 - Replace `public/og-image.svg` if you want a different social sharing preview.
 
 ## Deploy and connect `yousif.cc`
