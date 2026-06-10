@@ -110,45 +110,62 @@ button, a { -webkit-tap-highlight-color: transparent; }
 }
 .scroll-cue { display: flex; align-items: center; gap: 8px; }
 
-.schematic-wrap {
-  position: relative; z-index: 1; width: min(100%, 620px); min-width: 0; justify-self: center; padding: 18px;
-  border: 1px solid rgba(143, 163, 157, .2); background: rgba(10, 18, 16, .52);
-  box-shadow: 0 35px 80px rgba(0,0,0,.22);
+.simulator {
+  position: relative; z-index: 2; width: min(100%, 680px); min-width: 0; justify-self: center; padding: 22px;
+  border: 1px solid rgba(143,163,157,.22); background: rgba(11,19,17,.9);
+  box-shadow: 0 32px 75px rgba(0,0,0,.28);
 }
-.schematic-wrap::before, .schematic-wrap::after {
-  content: ''; position: absolute; width: 18px; height: 18px; pointer-events: none;
+.simulator::before {
+  content: ''; position: absolute; width: 18px; height: 18px; top: -1px; left: -1px;
+  border-top: 1px solid var(--green); border-left: 1px solid var(--green); pointer-events: none;
 }
-.schematic-wrap::before { top: -1px; left: -1px; border-top: 1px solid var(--green); border-left: 1px solid var(--green); }
-.schematic-wrap::after { right: -1px; bottom: -1px; border-right: 1px solid #61716c; border-bottom: 1px solid #61716c; }
-.schematic-heading, .schematic-legend {
-  display: flex; align-items: center; justify-content: space-between; color: #63736e;
-  font: 400 7px var(--mono); letter-spacing: .1em;
+.simulator-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; padding-bottom: 17px; border-bottom: 1px solid var(--line); }
+.simulator-kicker { color: #61716c; font: 400 7px var(--mono); letter-spacing: .12em; }
+.simulator-header h2 { margin: 7px 0 0; color: #dbe4e1; font-size: 18px; letter-spacing: -.02em; }
+.simulator-status { display: flex; align-items: center; gap: 7px; flex: 0 0 auto; color: #74847f; font: 700 7px var(--mono); letter-spacing: .1em; }
+.simulator-status i { width: 6px; height: 6px; border-radius: 50%; background: #53615d; }
+.simulator-status.running { color: #a3c790; }
+.simulator-status.running i { background: var(--green); animation: pulse 1.2s infinite; }
+.simulator-flow { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 17px; padding: 20px 0 17px; }
+.simulator-stage-wrap { position: relative; min-width: 0; }
+.simulator-stage {
+  height: 100%; min-height: 260px; padding: 12px; border: 1px solid #27342f; background: rgba(255,255,255,.012);
+  transition: border-color .3s, background .3s, box-shadow .3s, transform .3s;
 }
-.schematic-heading { padding: 0 2px 12px; border-bottom: 1px solid rgba(143,163,157,.13); }
-.schematic { display: block; width: 100%; max-width: 100%; height: auto; overflow: hidden; }
-.schematic-grid-lines line { stroke: rgba(154, 176, 169, .055); stroke-width: 1; }
-.process-lines path { fill: none; stroke: #64756f; stroke-width: 1.4; stroke-dasharray: 5 5; }
-.process-lines path:first-child { stroke: #899a94; stroke-dasharray: none; }
-.instrument circle, .plc-block rect, .process-vessel path {
-  fill: rgba(13, 23, 20, .76); stroke: #8a9b95; stroke-width: 1.25;
+.simulator-stage.active {
+  border-color: rgba(155,234,99,.55); background: rgba(155,234,99,.035);
+  box-shadow: inset 0 2px 0 rgba(155,234,99,.55); transform: translateY(-2px);
 }
-.instrument path, .plc-block path { fill: none; stroke: #8a9b95; stroke-width: 1.2; }
-.instrument text, .plc-block text, .process-vessel text, .signal-notes text {
-  fill: #7d8f89; font-family: var(--mono); font-size: 8px; text-anchor: middle; letter-spacing: .08em;
+.stage-heading { width: 100%; padding: 0 0 11px; display: grid; grid-template-columns: auto auto 1fr; align-items: center; gap: 7px; color: inherit; text-align: left; background: transparent; border: 0; border-bottom: 1px solid var(--line); cursor: pointer; }
+.stage-heading svg { width: 17px; color: #768781; stroke-width: 1.5; }
+.simulator-stage.active .stage-heading svg { color: var(--green); }
+.stage-index { color: #485650; font: 400 7px var(--mono); }
+.stage-heading small { display: block; margin-bottom: 3px; color: #65746f; font: 400 6px var(--mono); text-transform: uppercase; letter-spacing: .08em; }
+.stage-heading strong { display: block; color: #cbd6d2; font-size: 10px; line-height: 1.2; }
+.stage-items { display: flex; flex-direction: column; gap: 5px; padding-top: 10px; }
+.stage-items button {
+  width: 100%; padding: 6px 7px; color: #7e8e89; background: transparent; border: 1px solid transparent;
+  font: 400 7px var(--mono); line-height: 1.35; text-align: left; cursor: pointer; transition: color .2s, border-color .2s, background .2s;
 }
-.instrument circle { animation: schematicPulse 4s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
-.instrument-level circle { animation-delay: .5s; }
-.instrument-pressure circle { animation-delay: 1s; }
-.instrument-temp circle { animation-delay: 1.5s; }
-.plc-block text:first-of-type { fill: #d7e0dd; font-size: 13px; font-weight: 700; }
-.io-points circle { fill: var(--green); opacity: .65; }
-.process-vessel .liquid-line { fill: none; stroke: var(--green); stroke-width: 1; opacity: .55; }
-.process-vessel text { font-size: 9px; }
-.signal-notes text { font-size: 6px; fill: #4d5e59; }
-.schematic-legend { justify-content: flex-start; gap: 20px; padding-top: 11px; border-top: 1px solid rgba(143,163,157,.13); }
-.schematic-legend span { display: flex; align-items: center; gap: 6px; }
-.schematic-legend i { width: 5px; height: 5px; border-radius: 50%; background: #64756f; }
-.schematic-legend span:first-child i { background: var(--green); }
+.stage-items button::before { content: '>'; margin-right: 5px; color: #46544f; }
+.stage-items button:hover, .stage-items button:focus-visible { color: #cbd6d2; border-color: #34443e; background: rgba(255,255,255,.025); outline: none; }
+.simulator-stage.active .stage-items button::before { color: var(--green); }
+.flow-connector { position: absolute; z-index: 2; top: 50%; right: -21px; width: 25px; color: #44514d; transform: translateY(-50%); }
+.flow-connector i { position: absolute; width: 16px; height: 1px; top: 50%; left: 0; background: currentColor; }
+.flow-connector svg { position: absolute; width: 12px; height: 12px; top: 50%; right: -1px; transform: translateY(-50%); }
+.flow-connector.passed { color: var(--green); }
+.simulator-readout { min-height: 76px; padding: 14px; display: grid; grid-template-columns: 72px 1fr; gap: 14px; align-items: center; background: #0a1210; border: 1px solid #25322e; }
+.readout-label { height: 100%; display: flex; flex-direction: column; justify-content: space-between; border-right: 1px solid var(--line); }
+.readout-label span { color: #667670; font: 400 6px var(--mono); letter-spacing: .1em; }
+.readout-label b { color: var(--green); font: 400 16px var(--mono); }
+.simulator-readout p { margin: 0; color: #a2b0ac; font-size: 12px; line-height: 1.55; }
+.run-sequence {
+  width: 100%; min-height: 42px; margin-top: 10px; display: flex; align-items: center; justify-content: center; gap: 8px;
+  color: #cbd6d2; background: #111c19; border: 1px solid #35443f; font: 700 8px var(--mono); letter-spacing: .1em;
+  text-transform: uppercase; cursor: pointer; transition: border-color .2s, color .2s, background .2s;
+}
+.run-sequence:hover:not(:disabled) { color: #0b120f; background: var(--green); border-color: var(--green); }
+.run-sequence:disabled { color: #7e9a72; cursor: wait; }
 
 .section { padding: 120px clamp(24px, 7vw, 118px); border-top: 1px solid var(--line); }
 .section-heading { max-width: 750px; margin-bottom: 60px; }
@@ -261,7 +278,6 @@ footer > p { color: #4e5e59; font: 400 9px var(--mono); text-align: center; text
 .reveal { opacity: 0; transform: translateY(20px); transition: opacity .7s ease, transform .7s ease; }
 .reveal.visible { opacity: 1; transform: translateY(0); }
 @keyframes pulse { 50% { opacity: .45; box-shadow: 0 0 4px var(--green); } }
-@keyframes schematicPulse { 50% { stroke: #a8baaf; transform: scale(1.025); } }
 
 @media (max-width: 960px) {
   .nav { position: fixed; inset: 76px 0 auto; padding: 28px; display: none; flex-direction: column; align-items: stretch; background: #0c1513; border-bottom: 1px solid var(--line); }
@@ -270,7 +286,7 @@ footer > p { color: #4e5e59; font: 400 9px var(--mono); text-align: center; text
   .menu-button { display: grid; place-items: center; }
   .hero { grid-template-columns: 1fr; padding-top: 135px; }
   .hero-copy { max-width: 760px; }
-  .schematic-wrap { width: min(90vw, 620px); margin: 25px auto 45px; }
+  .simulator { width: min(92vw, 680px); margin: 25px auto 45px; }
   .hero-meta { position: static; grid-column: 1; margin-top: -25px; }
   .about-layout { grid-template-columns: 1fr; gap: 20px; }
   .about .section-heading { margin-bottom: 0; }
@@ -283,7 +299,7 @@ footer > p { color: #4e5e59; font: 400 9px var(--mono); text-align: center; text
   .site-header { height: 66px; }
   .nav { top: 66px; }
   .hero { width: 100vw; min-height: auto; grid-template-columns: minmax(0, 1fr); padding: 110px 20px 65px; }
-  .hero-copy, .schematic-wrap { width: calc(100vw - 40px); max-width: calc(100vw - 40px); }
+  .hero-copy, .simulator { width: calc(100vw - 40px); max-width: calc(100vw - 40px); }
   .hero-copy { overflow: hidden; }
   .availability { line-height: 1.6; }
   .hero h1 { font-size: clamp(52px, 16.5vw, 70px); letter-spacing: -.065em; }
@@ -293,9 +309,13 @@ footer > p { color: #4e5e59; font: 400 9px var(--mono); text-align: center; text
   .hero-actions { align-items: stretch; flex-direction: column; }
   .hero-actions .button { width: 100%; flex: none; }
   .text-link { width: 100%; margin: 8px 0 0; }
-  .schematic-wrap { width: 100%; padding: 12px; margin: 18px 0 25px; }
-  .schematic-heading { font-size: 6px; }
-  .schematic-legend { gap: 10px; flex-wrap: wrap; font-size: 6px; }
+  .simulator { padding: 15px; margin: 18px 0 25px; }
+  .simulator-header h2 { font-size: 16px; }
+  .simulator-flow { grid-template-columns: 1fr; gap: 22px; }
+  .simulator-stage { min-height: 0; }
+  .stage-items { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .flow-connector { top: auto; right: 50%; bottom: -20px; width: 14px; height: 20px; transform: translateX(50%) rotate(90deg); }
+  .simulator-readout { grid-template-columns: 58px 1fr; }
   .section { padding: 85px 20px; }
   .section-heading { margin-bottom: 42px; }
   .section-heading h2, .contact-content h2 { font-size: 44px; }

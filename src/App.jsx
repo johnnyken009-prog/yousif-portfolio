@@ -8,15 +8,18 @@ import {
   CheckCircle2,
   ChevronRight,
   CircleGauge,
+  CircuitBoard,
   Cpu,
   Download,
   GraduationCap,
   HardHat,
   Mail,
   Menu,
+  Play,
   Ruler,
   Settings,
   SlidersHorizontal,
+  SquareActivity,
   Wrench,
   X,
   Zap,
@@ -149,6 +152,59 @@ const projects = [
   },
 ]
 
+const simulatorStages = [
+  {
+    title: 'Sensors / Inputs',
+    shortTitle: 'Inputs',
+    icon: SlidersHorizontal,
+    note: 'Hands-on lab training with sensors, PLC inputs, and process instrumentation measurement equipment.',
+    items: [
+      ['Flow', 'Hands-on process instrumentation training with flow measurement.'],
+      ['Level', 'Lab experience working with equipment used to measure process level.'],
+      ['Pressure', 'Hands-on training with pressure measurement and fluid-power systems.'],
+      ['Temperature', 'Process instrumentation training with temperature measurement equipment.'],
+      ['Proximity / Photoelectric', 'Experience testing sensors and tracing their input signals to PLC I/O.'],
+    ],
+  },
+  {
+    title: 'PLC Logic',
+    shortTitle: 'PLC',
+    icon: CircuitBoard,
+    note: 'PLC programming exposure using Ladder Logic, SFC, and Studio 5000 / Logix 5000.',
+    items: [
+      ['Studio 5000 / Logix 5000', 'Hands-on college lab exposure using Studio 5000 / Logix 5000.'],
+      ['Ladder Logic', 'Programmed and reviewed ladder logic for training-station sequences.'],
+      ['SFC', 'Training exposure to Sequential Function Chart concepts for step-based automation.'],
+      ['I/O Troubleshooting', 'Traced PLC inputs and outputs to diagnose sensors, actuators, and sequence behavior.'],
+    ],
+  },
+  {
+    title: 'Outputs / Actuators',
+    shortTitle: 'Outputs',
+    icon: Settings,
+    note: 'Hands-on training connecting PLC outputs to electrical, mechanical, and pneumatic devices.',
+    items: [
+      ['Motor', 'Built and tested motor-control circuits in a supervised lab environment.'],
+      ['VFD', 'Training exposure to VFD fundamentals and motor-speed control concepts.'],
+      ['Solenoid Valve', 'Worked with electrically controlled valves in pneumatic training systems.'],
+      ['Pneumatic Cylinder', 'Tested cylinder operation, air supply, valves, sensors, and sequence behavior.'],
+      ['Actuator', 'Worked with actuators as PLC-controlled outputs in automation labs.'],
+    ],
+  },
+  {
+    title: 'Testing / Tools',
+    shortTitle: 'Testing',
+    icon: SquareActivity,
+    note: 'Methodical lab troubleshooting using measurement tools, diagrams, testing procedures, and documentation.',
+    items: [
+      ['Multimeter', 'Used electrical test equipment while building and diagnosing training circuits.'],
+      ['Precision Instruments', 'Used dial indicators and precision checks for alignment and mechanical inspection.'],
+      ['Schematics', 'Read electrical schematics, wiring diagrams, and equipment documentation.'],
+      ['Calibration / Troubleshooting', 'Practiced systematic testing, measurement checks, fault isolation, and documentation.'],
+    ],
+  },
+]
+
 function SectionHeading({ eyebrow, title, text }) {
   return (
     <div className="section-heading reveal">
@@ -190,84 +246,104 @@ function Header() {
   )
 }
 
-function TechnicalSchematic() {
+function MechatronicsSimulator() {
+  const [activeStage, setActiveStage] = useState(0)
+  const [selectedNote, setSelectedNote] = useState(simulatorStages[0].note)
+  const [running, setRunning] = useState(false)
+
+  useEffect(() => {
+    if (!running) return undefined
+
+    const timer = window.setTimeout(() => {
+      if (activeStage < simulatorStages.length - 1) {
+        const nextStage = activeStage + 1
+        setActiveStage(nextStage)
+        setSelectedNote(simulatorStages[nextStage].note)
+      } else {
+        setRunning(false)
+      }
+    }, activeStage === simulatorStages.length - 1 ? 1200 : 900)
+
+    return () => window.clearTimeout(timer)
+  }, [activeStage, running])
+
+  const selectStage = (index, note = simulatorStages[index].note) => {
+    setRunning(false)
+    setActiveStage(index)
+    setSelectedNote(note)
+  }
+
+  const runSequence = () => {
+    setActiveStage(0)
+    setSelectedNote(simulatorStages[0].note)
+    setRunning(true)
+  }
+
   return (
-    <div className="schematic-wrap" aria-label="Process automation and instrumentation schematic">
-      <div className="schematic-heading">
-        <span>PROCESS CONTROL // TRAINING SYSTEM</span>
-        <span>DWG 01</span>
+    <section className="simulator" aria-labelledby="simulator-title">
+      <div className="simulator-header">
+        <div>
+          <span className="simulator-kicker">INTERACTIVE TECHNICAL OVERVIEW</span>
+          <h2 id="simulator-title">Mechatronics Control Simulator</h2>
+        </div>
+        <div className={running ? 'simulator-status running' : 'simulator-status'}>
+          <i />
+          {running ? `STEP ${activeStage + 1} / 4` : 'READY'}
+        </div>
       </div>
-      <svg className="schematic" viewBox="0 0 620 520" role="img" aria-labelledby="schematic-title">
-        <title id="schematic-title">Blueprint diagram connecting a PLC to flow, level, pressure, and temperature instrumentation</title>
-        <g className="schematic-grid-lines">
-          {[80, 160, 240, 320, 400, 480, 560].map((x) => <line key={`x-${x}`} x1={x} y1="0" x2={x} y2="520" />)}
-          {[70, 140, 210, 280, 350, 420, 490].map((y) => <line key={`y-${y}`} x1="0" y1={y} x2="620" y2={y} />)}
-        </g>
 
-        <g className="process-lines">
-          <path d="M82 260H188M290 260H388M484 260H550" />
-          <path d="M238 210V122H455V176" />
-          <path d="M238 310V402H455V344" />
-        </g>
-
-        <g className="instrument instrument-flow">
-          <circle cx="82" cy="260" r="34" />
-          <path d="M65 260h34M91 250l10 10-10 10" />
-          <text x="82" y="315">FLOW</text>
-          <text x="82" y="329">FT-101</text>
-        </g>
-
-        <g className="plc-block">
-          <rect x="188" y="210" width="102" height="100" rx="3" />
-          <text x="239" y="247">PLC</text>
-          <text x="239" y="266">LOGIX 5000</text>
-          <g className="io-points">
-            {[226, 244, 262, 280, 298].map((y) => <circle key={y} cx="198" cy={y} r="3" />)}
-          </g>
-          <path d="M216 286h46M216 294h31" />
-        </g>
-
-        <g className="process-vessel">
-          <path d="M388 196h96v128h-96zM398 196c0-24 76-24 76 0M398 324c0 24 76 24 76 0" />
-          <path className="liquid-line" d="M389 278h94" />
-          <text x="436" y="247">PROCESS</text>
-          <text x="436" y="263">VESSEL</text>
-        </g>
-
-        <g className="instrument instrument-level">
-          <circle cx="455" cy="122" r="30" />
-          <text x="455" y="119">LT</text>
-          <text x="455" y="135">102</text>
-          <text x="455" y="80">LEVEL</text>
-        </g>
-
-        <g className="instrument instrument-pressure">
-          <circle cx="455" cy="402" r="30" />
-          <text x="455" y="399">PT</text>
-          <text x="455" y="415">103</text>
-          <text x="455" y="458">PRESSURE</text>
-        </g>
-
-        <g className="instrument instrument-temp">
-          <circle cx="550" cy="260" r="34" />
-          <path d="M550 242v27M543 269a7 7 0 1 0 14 0" />
-          <text x="550" y="315">TEMPERATURE</text>
-          <text x="550" y="329">TT-104</text>
-        </g>
-
-        <g className="signal-notes">
-          <text x="118" y="248">4-20 mA</text>
-          <text x="306" y="248">CONTROL SIGNAL</text>
-          <text x="298" y="114">LEVEL INPUT</text>
-          <text x="298" y="421">PRESSURE INPUT</text>
-        </g>
-      </svg>
-      <div className="schematic-legend">
-        <span><i /> PLC CONTROL</span>
-        <span><i /> FIELD INSTRUMENTS</span>
-        <span><i /> PROCESS LOOP</span>
+      <div className="simulator-flow" aria-label="Sensors and inputs flow to PLC logic, outputs and actuators, then testing and troubleshooting">
+        {simulatorStages.map(({ title, shortTitle, icon: Icon, items }, index) => (
+          <div className="simulator-stage-wrap" key={title}>
+            <article className={`simulator-stage ${activeStage === index ? 'active' : ''}`}>
+              <button
+                className="stage-heading"
+                type="button"
+                onClick={() => selectStage(index)}
+                aria-pressed={activeStage === index}
+              >
+                <span className="stage-index">0{index + 1}</span>
+                <Icon aria-hidden="true" />
+                <span>
+                  <small>{shortTitle}</small>
+                  <strong>{title}</strong>
+                </span>
+              </button>
+              <div className="stage-items">
+                {items.map(([label, note]) => (
+                  <button
+                    type="button"
+                    key={label}
+                    onClick={() => selectStage(index, note)}
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
+            </article>
+            {index < simulatorStages.length - 1 && (
+              <div className={`flow-connector ${activeStage > index || (running && activeStage === index) ? 'passed' : ''}`} aria-hidden="true">
+                <i />
+                <ChevronRight />
+              </div>
+            )}
+          </div>
+        ))}
       </div>
-    </div>
+
+      <div className="simulator-readout">
+        <div className="readout-label">
+          <span>SKILL NOTE</span>
+          <b>0{activeStage + 1}</b>
+        </div>
+        <p aria-live="polite">{selectedNote}</p>
+      </div>
+
+      <button className="run-sequence" type="button" onClick={runSequence} disabled={running}>
+        <Play size={14} fill="currentColor" />
+        {running ? 'Sequence Running' : 'Start Sequence'}
+      </button>
+    </section>
   )
 }
 
@@ -306,7 +382,7 @@ function App() {
               <a className="text-link" href="#contact">Contact Me <ArrowUpRight size={16} /></a>
             </div>
           </div>
-          <TechnicalSchematic />
+          <MechatronicsSimulator />
           <div className="hero-meta">
             <span>BASED IN SNELLVILLE, GA</span>
             <span className="scroll-cue">SCROLL TO EXPLORE <ArrowDown size={14} /></span>
