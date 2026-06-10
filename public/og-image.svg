@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M48 0H0V48" fill="none" stroke="#23332e" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="630" fill="#09100f"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <circle cx="950" cy="310" r="230" fill="none" stroke="#9bea63" stroke-opacity=".18"/>
+  <circle cx="950" cy="310" r="155" fill="none" stroke="#9bea63" stroke-opacity=".12" stroke-dasharray="8 10"/>
+  <rect x="86" y="84" width="54" height="54" fill="#9bea63"/>
+  <text x="113" y="118" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" font-weight="700" fill="#09100f">YA</text>
+  <text x="86" y="264" font-family="Arial,sans-serif" font-size="75" font-weight="700" fill="#edf3f1">Yousif Al-Abbasi</text>
+  <text x="86" y="330" font-family="monospace" font-size="25" fill="#9bea63">MECHATRONICS / AUTOMATION / MAINTENANCE</text>
+  <text x="86" y="410" font-family="Arial,sans-serif" font-size="28" fill="#879892">Engineering portfolio • yousif.cc</text>
+</svg>
