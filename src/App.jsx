@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import SkillHub3D from './components/SkillHub3D'
 import {
   ArrowDown,
   ArrowUpRight,
@@ -66,91 +67,6 @@ const skills = [
     number: '06',
     title: 'Troubleshooting / Tools',
     items: ['Multimeter', 'Precision instruments', 'Wiring checks', 'Schematics', 'Maintenance basics', 'Safe troubleshooting'],
-  },
-]
-
-const skillHubModules = [
-  {
-    title: 'PLC Control',
-    icon: Cpu,
-    description: 'Hands-on PLC training focused on industrial inputs, outputs, logic, and troubleshooting.',
-    bullets: [
-      'Studio 5000 / Logix 5000 exposure',
-      'Ladder Logic programming and SFC sequence logic',
-      'PLC tags, inputs, outputs, and basic program structure',
-      'I/O troubleshooting with sensors and actuators',
-      'Understanding how PLCs control motors, valves, cylinders, and automation devices',
-      'Experience reading logic and connecting it to real machine behavior',
-    ],
-    related: ['Studio 5000', 'Logix 5000', 'Ladder Logic', 'SFC', 'I/O', 'Tags', 'Sensors', 'Actuators'],
-  },
-  {
-    title: 'Instrumentation',
-    icon: SlidersHorizontal,
-    description: 'Process instrumentation training using equipment that measures real industrial variables.',
-    bullets: [
-      'Worked with process training equipment measuring flow, level, pressure, and temperature',
-      'Understanding of how instruments monitor process conditions',
-      'Experience with sensors, signals, calibration concepts, and process control basics',
-      'Understanding of how instrumentation connects to PLC inputs and control systems',
-      'Familiarity with process variables used in manufacturing and industrial automation',
-    ],
-    related: ['Flow', 'Level', 'Pressure', 'Temperature', 'Sensors', 'Process Monitoring', 'Calibration Concepts'],
-  },
-  {
-    title: 'Motor Controls',
-    icon: Zap,
-    description: 'Hands-on training with electrical control circuits and industrial motor control components.',
-    bullets: [
-      'Motor control circuits and industrial wiring concepts',
-      'Relays, contactors, overloads, switches, and control devices',
-      'Basic VFD understanding',
-      'Reading electrical schematics and understanding control circuit logic',
-      'Troubleshooting basic motor control issues safely and methodically',
-    ],
-    related: ['Motor Controls', 'VFDs', 'Contactors', 'Relays', 'Overloads', 'Schematics', 'Wiring'],
-  },
-  {
-    title: 'Pneumatics / Hydraulics',
-    icon: CircleGauge,
-    description: 'Training with fluid power systems used in automation and industrial equipment.',
-    bullets: [
-      'Pneumatic cylinders, solenoid valves, actuators, and air pressure requirements',
-      'Hydraulic and pneumatic trainer experience',
-      'Understanding of fluid power components and safety',
-      'Testing devices to confirm proper operation',
-      'Understanding how fluid-power systems connect to PLC-controlled machines',
-      'Basic troubleshooting of cylinders, valves, pressure, and movement issues',
-    ],
-    related: ['Pneumatics', 'Hydraulics', 'Solenoids', 'Cylinders', 'Actuators', 'Air Pressure', 'Fluid Power'],
-  },
-  {
-    title: 'Robotics / Automation',
-    icon: Bot,
-    description: 'Automation and robotics training connected to real industrial motion and sequencing.',
-    bullets: [
-      'Robotics coursework and lab experience',
-      'FANUC robot exposure through supervised training',
-      'Understanding of automated sequences and machine operation',
-      'Sensors, actuators, and control flow',
-      'Basic path, motion, and programming concepts from lab training',
-      'Understanding how robots fit into automated manufacturing systems',
-    ],
-    related: ['Robotics', 'Automation', 'FANUC', 'Sensors', 'Actuators', 'Sequences', 'Industrial Systems'],
-  },
-  {
-    title: 'Troubleshooting Tools',
-    icon: Wrench,
-    description: 'Hands-on troubleshooting using tools, schematics, and measurement equipment.',
-    bullets: [
-      'Multimeters and precision instruments',
-      'Electrical checks and wiring verification',
-      'Reading schematics and technical diagrams',
-      'Mechanical alignment and basic maintenance tasks',
-      'Troubleshooting sensors, actuators, motors, and control circuits',
-      'Safe, step-by-step diagnostic approach for industrial equipment',
-    ],
-    related: ['Multimeter', 'Precision Instruments', 'Schematics', 'Wiring Checks', 'Troubleshooting', 'Maintenance'],
   },
 ]
 
@@ -276,101 +192,6 @@ function Header() {
   )
 }
 
-function SkillHub() {
-  const [selectedModule, setSelectedModule] = useState(null)
-
-  useEffect(() => {
-    if (selectedModule === null) return undefined
-
-    const closeOnEscape = (event) => {
-      if (event.key === 'Escape') setSelectedModule(null)
-    }
-
-    document.body.classList.add('modal-open')
-    window.addEventListener('keydown', closeOnEscape)
-    window.requestAnimationFrame(() => document.querySelector('.hub-close')?.focus())
-    return () => {
-      document.body.classList.remove('modal-open')
-      window.removeEventListener('keydown', closeOnEscape)
-    }
-  }, [selectedModule])
-
-  return (
-    <>
-      <section className="skill-hub" aria-labelledby="skill-hub-title">
-        <div className="skill-hub-heading">
-          <span>INTERACTIVE TECHNICAL OVERVIEW</span>
-          <h2 id="skill-hub-title">Mechatronics Skill Hub</h2>
-          <p>Select a module to view training details and related tools.</p>
-        </div>
-        <div className="skill-hub-grid">
-          {skillHubModules.map(({ title, icon: Icon, description }, index) => (
-            <button
-              className="hub-module"
-              type="button"
-              key={title}
-              onClick={() => setSelectedModule(index)}
-              aria-haspopup="dialog"
-            >
-              <span className="hub-module-number">0{index + 1}</span>
-              <span className="hub-icon"><Icon aria-hidden="true" /></span>
-              <strong>{title}</strong>
-              <span className="hub-summary">{description}</span>
-              <span className="hub-open">View module <ArrowUpRight size={12} /></span>
-            </button>
-          ))}
-        </div>
-      </section>
-
-      {selectedModule !== null && (
-        <div className="hub-overlay" role="presentation" onMouseDown={() => setSelectedModule(null)}>
-          <section
-            className="hub-dialog"
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="hub-dialog-title"
-            onMouseDown={(event) => event.stopPropagation()}
-          >
-            <button className="hub-close" type="button" onClick={() => setSelectedModule(null)} aria-label="Close skill details">
-              <X />
-            </button>
-            <div className="hub-dialog-heading">
-              {(() => {
-                const Icon = skillHubModules[selectedModule].icon
-                return <Icon aria-hidden="true" />
-              })()}
-              <div>
-                <span>TRAINING MODULE / 0{selectedModule + 1}</span>
-                <h2 id="hub-dialog-title">{skillHubModules[selectedModule].title}</h2>
-              </div>
-            </div>
-            <p className="hub-dialog-description">{skillHubModules[selectedModule].description}</p>
-            <div className="hub-dialog-body">
-              <div>
-                <h3>Hands-on foundation</h3>
-                <ul>
-                  {skillHubModules[selectedModule].bullets.map((bullet) => (
-                    <li key={bullet}><CheckCircle2 />{bullet}</li>
-                  ))}
-                </ul>
-              </div>
-              <div>
-                <h3>Related skills</h3>
-                <div className="hub-tags">
-                  {skillHubModules[selectedModule].related.map((skill) => <span key={skill}>{skill}</span>)}
-                </div>
-              </div>
-            </div>
-            <button className="hub-back" type="button" onClick={() => setSelectedModule(null)}>
-              Back to Skill Hub
-            </button>
-          </section>
-        </div>
-      )}
-    </>
-  )
-}
-
 function App() {
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -409,7 +230,7 @@ function App() {
               <a className="text-link" href="#contact">Contact Me <ArrowUpRight size={16} /></a>
             </div>
           </div>
-          <SkillHub />
+          <SkillHub3D />
           <div className="hero-meta">
             <span>BASED IN SNELLVILLE, GA</span>
             <span className="scroll-cue">SCROLL TO EXPLORE <ArrowDown size={14} /></span>
