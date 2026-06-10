@@ -29,6 +29,7 @@ const navItems = [
   ['Projects', 'projects'],
   ['Experience', 'experience'],
   ['Education', 'education'],
+  ['References', 'references'],
 ]
 
 const skills = [
@@ -81,8 +82,8 @@ const projects = [
   {
     number: '01',
     icon: Cable,
-    title: 'MPS Pneumatics & PLC Documentation',
-    category: 'Technical Documentation',
+    title: 'PLC / MPS Automation System',
+    category: 'Automation Lab & Documentation',
     description:
       'Documented pneumatic functionality across five Modular Production System stations, connecting physical devices to their electrical signals and PLC-controlled logic.',
     details: [
@@ -108,8 +109,8 @@ const projects = [
   {
     number: '03',
     icon: Zap,
-    title: 'Motor Controls & Electrical Troubleshooting',
-    category: 'Electrical Lab',
+    title: 'Motor Controls Lab',
+    category: 'Electrical Controls Lab',
     description:
       'Built and evaluated motor control circuits using contactors, relays, overloads, and electrical schematics with an emphasis on safe troubleshooting.',
     details: ['Control circuit wiring', 'Schematic reading', 'Safe fault isolation'],
@@ -119,8 +120,8 @@ const projects = [
   {
     number: '04',
     icon: CircleGauge,
-    title: 'Fluid Power Systems',
-    category: 'Fluid Power Lab',
+    title: 'Pneumatics / Hydraulics Lab',
+    category: 'Fluid Power Training',
     description:
       'Worked with pneumatic and hydraulic training systems to understand pressure, flow, directional control, and component testing.',
     details: ['Cylinder and valve operation', 'Pressure and flow analysis', 'Systematic testing methods'],
@@ -130,7 +131,7 @@ const projects = [
   {
     number: '05',
     icon: Bot,
-    title: 'FANUC Robotics Lab',
+    title: 'Robotics Lab',
     category: 'Robotics Training',
     description:
       'Practiced robot pendant programming, taught positions, applied offsets, and developed basic path logic in a supervised lab environment.',
@@ -219,7 +220,7 @@ function App() {
               pneumatics, hydraulics, electrical troubleshooting, schematics, and industrial automation.
             </p>
             <div className="hero-targets" aria-label="Target roles">
-              {['Mechatronics Technician', 'Automation Technician', 'Controls Technician', 'Instrumentation Technician', 'Maintenance Technician', 'Electro-Mechanical Technician'].map((role) => (
+              {['Mechatronics Technician', 'Automation Technician', 'Controls Technician', 'Instrumentation Technician', 'Maintenance Technician', 'Electro-Mechanical Technician', 'PLC Technician', 'Machine Assembly Technician'].map((role) => (
                 <span key={role}>{role}</span>
               ))}
             </div>
@@ -276,7 +277,7 @@ function App() {
               <div className="target-roles">
                 <span>CAREER TARGETS</span>
                 <div>
-                  {['Maintenance Technician', 'Automation Technician', 'PLC Technician', 'Controls Technician', 'Instrumentation Technician'].map((role) => (
+                  {['Maintenance Technician', 'Automation Technician', 'PLC Technician', 'Controls Technician', 'Instrumentation Technician', 'Electro-Mechanical Technician', 'Machine Assembly Technician'].map((role) => (
                     <p key={role}><ChevronRight size={15} /> {role}</p>
                   ))}
                 </div>
@@ -369,6 +370,22 @@ function App() {
               <p>Expected 2029</p>
               <div className="education-line" />
             </article>
+          </div>
+        </section>
+
+        <section className="section references-section" id="references">
+          <div className="references-layout">
+            <SectionHeading
+              eyebrow="REFERENCES"
+              title="Professional context, available when needed."
+              text="References are available upon request for recruiters and hiring teams. Academic, technical training, and workplace references can be provided when needed."
+            />
+            <div className="references-card reveal">
+              <span>FOR RECRUITERS & HIRING TEAMS</span>
+              <h3>References available upon request.</h3>
+              <p>To protect personal contact information, reference details are shared directly during the hiring process.</p>
+              <a className="button secondary" href="#contact">Request References <ArrowDown size={17} /></a>
+            </div>
           </div>
         </section>
 

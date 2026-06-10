@@ -5,8 +5,9 @@ export const skillHubModules = [
     id: 'plc-control',
     title: 'PLC Control',
     shortLabel: 'PLC',
+    equipment: 'plc',
     icon: Cpu,
-    position: [-2.65, 1.45, 0],
+    position: [-2.65, 0.18, -0.85],
     accent: '#9bea63',
     description: 'Hands-on PLC training focused on industrial inputs, outputs, logic, and troubleshooting.',
     bullets: [
@@ -23,9 +24,10 @@ export const skillHubModules = [
   {
     id: 'instrumentation',
     title: 'Instrumentation',
-    shortLabel: 'INSTRUMENTS',
+    shortLabel: 'Instruments',
+    equipment: 'instrumentation',
     icon: SlidersHorizontal,
-    position: [0, 2.05, -0.25],
+    position: [0, 0.2, -1.5],
     accent: '#8fb9aa',
     description: 'Process instrumentation training using equipment that measures real industrial variables.',
     bullets: [
@@ -34,15 +36,17 @@ export const skillHubModules = [
       'Experience with sensors, signals, calibration concepts, and process control basics',
       'Understanding of how instrumentation connects to PLC inputs and control systems',
       'Familiarity with process variables used in manufacturing and industrial automation',
+      'Experience using precision instruments in technical training',
     ],
     related: ['Flow', 'Level', 'Pressure', 'Temperature', 'Sensors', 'Process Monitoring', 'Calibration Concepts', 'Precision Instruments'],
   },
   {
     id: 'motor-controls',
     title: 'Motor Controls',
-    shortLabel: 'MOTOR',
+    shortLabel: 'Motors',
+    equipment: 'motor',
     icon: Zap,
-    position: [2.65, 1.45, 0],
+    position: [2.45, 0.18, -0.75],
     accent: '#9bea63',
     description: 'Hands-on training with electrical control circuits and industrial motor control components.',
     bullets: [
@@ -58,9 +62,10 @@ export const skillHubModules = [
   {
     id: 'fluid-power',
     title: 'Pneumatics / Hydraulics',
-    shortLabel: 'FLUID POWER',
+    shortLabel: 'Fluid Power',
+    equipment: 'fluid',
     icon: CircleGauge,
-    position: [-2.65, -1.45, 0],
+    position: [2.15, 0.18, 1.35],
     accent: '#8fb9aa',
     description: 'Training with fluid power systems used in automation and industrial equipment.',
     bullets: [
@@ -76,9 +81,10 @@ export const skillHubModules = [
   {
     id: 'robotics-automation',
     title: 'Robotics / Automation',
-    shortLabel: 'ROBOTICS',
+    shortLabel: 'Robotics',
+    equipment: 'robot',
     icon: Bot,
-    position: [0, -2.05, 0.25],
+    position: [-1.45, 0.18, 1.2],
     accent: '#9bea63',
     description: 'Automation and robotics training connected to industrial motion and sequencing.',
     bullets: [
@@ -94,9 +100,10 @@ export const skillHubModules = [
   {
     id: 'troubleshooting-tools',
     title: 'Troubleshooting Tools',
-    shortLabel: 'DIAGNOSTICS',
+    shortLabel: 'Tools',
+    equipment: 'tools',
     icon: Wrench,
-    position: [2.65, -1.45, 0],
+    position: [0.25, 0.2, 2.05],
     accent: '#8fb9aa',
     description: 'Hands-on troubleshooting mindset using tools, schematics, and measurement equipment.',
     bullets: [
