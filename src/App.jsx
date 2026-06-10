@@ -8,18 +8,15 @@ import {
   CheckCircle2,
   ChevronRight,
   CircleGauge,
-  CircuitBoard,
   Cpu,
   Download,
   GraduationCap,
   HardHat,
   Mail,
   Menu,
-  Play,
   Ruler,
   Settings,
   SlidersHorizontal,
-  SquareActivity,
   Wrench,
   X,
   Zap,
@@ -37,51 +34,131 @@ const skills = [
   {
     icon: Cpu,
     number: '01',
-    title: 'PLCs & Controls',
-    items: ['Studio 5000 / Logix 5000', 'Ladder logic', 'SFC', 'I/O systems', 'Sensors & actuators'],
+    title: 'PLC / Controls',
+    items: ['Studio 5000 / Logix 5000', 'Ladder Logic', 'SFC', 'I/O troubleshooting', 'Sensors & actuators'],
+  },
+  {
+    icon: SlidersHorizontal,
+    number: '02',
+    title: 'Instrumentation',
+    items: ['Flow', 'Level', 'Pressure', 'Temperature', 'Precision instruments', 'Process monitoring'],
   },
   {
     icon: Zap,
-    number: '02',
-    title: 'Electrical & Motor Controls',
-    items: ['Wiring & schematics', 'Relays & contactors', 'Motor starters', 'VFD basics', 'Electrical troubleshooting'],
-  },
-  {
-    icon: Settings,
     number: '03',
-    title: 'Mechanical Systems',
-    items: ['Bearings', 'Alignment', 'Hand tools', 'Measurements', 'Industrial safety'],
+    title: 'Electrical / Motor Controls',
+    items: ['Motor control circuits', 'Relays', 'Contactors', 'Overloads', 'VFD basics', 'Schematics'],
   },
   {
     icon: CircleGauge,
     number: '04',
-    title: 'Pneumatics & Hydraulics',
-    items: ['Cylinders & valves', 'Air pressure', 'Fluid power trainers', 'Flow & pressure', 'System troubleshooting'],
+    title: 'Mechanical / Fluid Power',
+    items: ['Pneumatics', 'Hydraulics', 'Cylinders', 'Solenoid valves', 'Actuators', 'Mechanical alignment'],
   },
   {
     icon: Bot,
     number: '05',
-    title: 'Robotics',
-    items: ['FANUC basics', 'Pendant programming', 'Frames & positions', 'Path offsets', 'Basic path logic'],
+    title: 'Robotics / Automation',
+    items: ['Robotics lab experience', 'FANUC basics', 'Automated sequences', 'Sensors', 'Actuators', 'Industrial systems'],
   },
   {
     icon: Wrench,
     number: '06',
-    title: 'Maintenance & Diagnostics',
-    items: ['Equipment diagnosis', 'Device testing', 'Reading diagrams', 'Root-cause thinking', 'Work documentation'],
+    title: 'Troubleshooting / Tools',
+    items: ['Multimeter', 'Precision instruments', 'Wiring checks', 'Schematics', 'Maintenance basics', 'Safe troubleshooting'],
+  },
+]
+
+const skillHubModules = [
+  {
+    title: 'PLC Control',
+    icon: Cpu,
+    description: 'Hands-on PLC training focused on industrial inputs, outputs, logic, and troubleshooting.',
+    bullets: [
+      'Studio 5000 / Logix 5000 exposure',
+      'Ladder Logic programming and SFC sequence logic',
+      'PLC tags, inputs, outputs, and basic program structure',
+      'I/O troubleshooting with sensors and actuators',
+      'Understanding how PLCs control motors, valves, cylinders, and automation devices',
+      'Experience reading logic and connecting it to real machine behavior',
+    ],
+    related: ['Studio 5000', 'Logix 5000', 'Ladder Logic', 'SFC', 'I/O', 'Tags', 'Sensors', 'Actuators'],
   },
   {
+    title: 'Instrumentation',
     icon: SlidersHorizontal,
-    number: '07',
-    title: 'Process Instrumentation',
-    items: ['Flow measurement', 'Level measurement', 'Pressure measurement', 'Temperature measurement', 'Four-variable training equipment'],
+    description: 'Process instrumentation training using equipment that measures real industrial variables.',
+    bullets: [
+      'Worked with process training equipment measuring flow, level, pressure, and temperature',
+      'Understanding of how instruments monitor process conditions',
+      'Experience with sensors, signals, calibration concepts, and process control basics',
+      'Understanding of how instrumentation connects to PLC inputs and control systems',
+      'Familiarity with process variables used in manufacturing and industrial automation',
+    ],
+    related: ['Flow', 'Level', 'Pressure', 'Temperature', 'Sensors', 'Process Monitoring', 'Calibration Concepts'],
   },
   {
-    icon: Ruler,
-    number: '08',
-    title: 'Precision Instruments',
-    items: ['Dial indicators', 'Measurement checks', 'Alignment verification', 'Component inspection', 'Careful documentation'],
+    title: 'Motor Controls',
+    icon: Zap,
+    description: 'Hands-on training with electrical control circuits and industrial motor control components.',
+    bullets: [
+      'Motor control circuits and industrial wiring concepts',
+      'Relays, contactors, overloads, switches, and control devices',
+      'Basic VFD understanding',
+      'Reading electrical schematics and understanding control circuit logic',
+      'Troubleshooting basic motor control issues safely and methodically',
+    ],
+    related: ['Motor Controls', 'VFDs', 'Contactors', 'Relays', 'Overloads', 'Schematics', 'Wiring'],
   },
+  {
+    title: 'Pneumatics / Hydraulics',
+    icon: CircleGauge,
+    description: 'Training with fluid power systems used in automation and industrial equipment.',
+    bullets: [
+      'Pneumatic cylinders, solenoid valves, actuators, and air pressure requirements',
+      'Hydraulic and pneumatic trainer experience',
+      'Understanding of fluid power components and safety',
+      'Testing devices to confirm proper operation',
+      'Understanding how fluid-power systems connect to PLC-controlled machines',
+      'Basic troubleshooting of cylinders, valves, pressure, and movement issues',
+    ],
+    related: ['Pneumatics', 'Hydraulics', 'Solenoids', 'Cylinders', 'Actuators', 'Air Pressure', 'Fluid Power'],
+  },
+  {
+    title: 'Robotics / Automation',
+    icon: Bot,
+    description: 'Automation and robotics training connected to real industrial motion and sequencing.',
+    bullets: [
+      'Robotics coursework and lab experience',
+      'FANUC robot exposure through supervised training',
+      'Understanding of automated sequences and machine operation',
+      'Sensors, actuators, and control flow',
+      'Basic path, motion, and programming concepts from lab training',
+      'Understanding how robots fit into automated manufacturing systems',
+    ],
+    related: ['Robotics', 'Automation', 'FANUC', 'Sensors', 'Actuators', 'Sequences', 'Industrial Systems'],
+  },
+  {
+    title: 'Troubleshooting Tools',
+    icon: Wrench,
+    description: 'Hands-on troubleshooting using tools, schematics, and measurement equipment.',
+    bullets: [
+      'Multimeters and precision instruments',
+      'Electrical checks and wiring verification',
+      'Reading schematics and technical diagrams',
+      'Mechanical alignment and basic maintenance tasks',
+      'Troubleshooting sensors, actuators, motors, and control circuits',
+      'Safe, step-by-step diagnostic approach for industrial equipment',
+    ],
+    related: ['Multimeter', 'Precision Instruments', 'Schematics', 'Wiring Checks', 'Troubleshooting', 'Maintenance'],
+  },
+]
+
+const recruiterHighlights = [
+  ['Hands-on technical training', 'Coursework and labs across electrical, mechanical, fluid-power, robotics, and automation systems.'],
+  ['PLC and automation foundation', 'Exposure to Studio 5000 / Logix 5000, Ladder Logic, SFC, I/O, sensors, and actuators.'],
+  ['Instrumentation and process measurement', 'Training equipment measuring flow, level, pressure, and temperature.'],
+  ['Troubleshooting mindset', 'Methodical use of schematics, test equipment, precision tools, and safe diagnostic steps.'],
 ]
 
 const projects = [
@@ -98,17 +175,19 @@ const projects = [
       'Outlined practical testing and troubleshooting steps',
     ],
     tags: ['Pneumatics', 'PLC Logic', 'Documentation', 'MPS'],
+    roleFit: 'Automation / PLC Technician',
     featured: true,
   },
   {
     number: '02',
-    icon: Cpu,
-    title: 'PLC I/O & Sensor Troubleshooting',
-    category: 'Controls Lab',
+    icon: SlidersHorizontal,
+    title: 'Process Instrumentation Trainer',
+    category: 'Instrumentation Lab',
     description:
-      'Worked with PLC inputs, outputs, sensors, actuators, and ladder logic to trace signals and diagnose system behavior.',
-    details: ['Input and output mapping', 'Online diagnostics', 'Sensor and actuator testing'],
-    tags: ['Studio 5000', 'Logix 5000', 'I/O', 'Ladder Logic'],
+      'Used process training equipment to study how flow, level, pressure, and temperature are measured and monitored.',
+    details: ['Observed four industrial process variables', 'Connected sensor signals to control-system concepts', 'Practiced measurement checks and calibration concepts'],
+    tags: ['Flow', 'Level', 'Pressure', 'Temperature'],
+    roleFit: 'Instrumentation / Controls Technician',
   },
   {
     number: '03',
@@ -119,6 +198,7 @@ const projects = [
       'Built and evaluated motor control circuits using contactors, relays, overloads, and electrical schematics with an emphasis on safe troubleshooting.',
     details: ['Control circuit wiring', 'Schematic reading', 'Safe fault isolation'],
     tags: ['Motor Controls', 'Relays', 'Contactors', 'Safety'],
+    roleFit: 'Electro-Mechanical / Maintenance Technician',
   },
   {
     number: '04',
@@ -129,6 +209,7 @@ const projects = [
       'Worked with pneumatic and hydraulic training systems to understand pressure, flow, directional control, and component testing.',
     details: ['Cylinder and valve operation', 'Pressure and flow analysis', 'Systematic testing methods'],
     tags: ['Hydraulics', 'Pneumatics', 'Valves', 'Diagnostics'],
+    roleFit: 'Mechatronics / Maintenance Technician',
   },
   {
     number: '05',
@@ -139,69 +220,18 @@ const projects = [
       'Practiced robot pendant programming, taught positions, applied offsets, and developed basic path logic in a supervised lab environment.',
     details: ['Pendant navigation', 'Position teaching', 'Frames and path offsets'],
     tags: ['FANUC', 'Robotics', 'Pendant', 'Path Logic'],
+    roleFit: 'Automation / Mechatronics Technician',
   },
   {
     number: '06',
-    icon: Settings,
-    title: 'Bearing & Alignment Lab',
-    category: 'Mechanical Lab',
+    icon: Ruler,
+    title: 'Electrical Troubleshooting & Schematics',
+    category: 'Diagnostic Lab',
     description:
-      'Applied industrial maintenance procedures to bearings, alignment, measurement, and mechanical component inspection.',
-    details: ['Bearing handling', 'Alignment checks', 'Precision measurement'],
-    tags: ['Bearings', 'Alignment', 'Maintenance', 'Measurement'],
-  },
-]
-
-const simulatorStages = [
-  {
-    title: 'Sensors / Inputs',
-    shortTitle: 'Inputs',
-    icon: SlidersHorizontal,
-    note: 'Hands-on lab training with sensors, PLC inputs, and process instrumentation measurement equipment.',
-    items: [
-      ['Flow', 'Hands-on process instrumentation training with flow measurement.'],
-      ['Level', 'Lab experience working with equipment used to measure process level.'],
-      ['Pressure', 'Hands-on training with pressure measurement and fluid-power systems.'],
-      ['Temperature', 'Process instrumentation training with temperature measurement equipment.'],
-      ['Proximity / Photoelectric', 'Experience testing sensors and tracing their input signals to PLC I/O.'],
-    ],
-  },
-  {
-    title: 'PLC Logic',
-    shortTitle: 'PLC',
-    icon: CircuitBoard,
-    note: 'PLC programming exposure using Ladder Logic, SFC, and Studio 5000 / Logix 5000.',
-    items: [
-      ['Studio 5000 / Logix 5000', 'Hands-on college lab exposure using Studio 5000 / Logix 5000.'],
-      ['Ladder Logic', 'Programmed and reviewed ladder logic for training-station sequences.'],
-      ['SFC', 'Training exposure to Sequential Function Chart concepts for step-based automation.'],
-      ['I/O Troubleshooting', 'Traced PLC inputs and outputs to diagnose sensors, actuators, and sequence behavior.'],
-    ],
-  },
-  {
-    title: 'Outputs / Actuators',
-    shortTitle: 'Outputs',
-    icon: Settings,
-    note: 'Hands-on training connecting PLC outputs to electrical, mechanical, and pneumatic devices.',
-    items: [
-      ['Motor', 'Built and tested motor-control circuits in a supervised lab environment.'],
-      ['VFD', 'Training exposure to VFD fundamentals and motor-speed control concepts.'],
-      ['Solenoid Valve', 'Worked with electrically controlled valves in pneumatic training systems.'],
-      ['Pneumatic Cylinder', 'Tested cylinder operation, air supply, valves, sensors, and sequence behavior.'],
-      ['Actuator', 'Worked with actuators as PLC-controlled outputs in automation labs.'],
-    ],
-  },
-  {
-    title: 'Testing / Tools',
-    shortTitle: 'Testing',
-    icon: SquareActivity,
-    note: 'Methodical lab troubleshooting using measurement tools, diagrams, testing procedures, and documentation.',
-    items: [
-      ['Multimeter', 'Used electrical test equipment while building and diagnosing training circuits.'],
-      ['Precision Instruments', 'Used dial indicators and precision checks for alignment and mechanical inspection.'],
-      ['Schematics', 'Read electrical schematics, wiring diagrams, and equipment documentation.'],
-      ['Calibration / Troubleshooting', 'Practiced systematic testing, measurement checks, fault isolation, and documentation.'],
-    ],
+      'Practiced a safe, step-by-step approach to wiring verification, diagram reading, measurement, and fault isolation.',
+    details: ['Read electrical schematics and wiring diagrams', 'Used test equipment and precision instruments', 'Documented observed faults and testing steps'],
+    tags: ['Multimeter', 'Schematics', 'Wiring', 'Troubleshooting'],
+    roleFit: 'Controls / Maintenance Technician',
   },
 ]
 
@@ -246,104 +276,98 @@ function Header() {
   )
 }
 
-function MechatronicsSimulator() {
-  const [activeStage, setActiveStage] = useState(0)
-  const [selectedNote, setSelectedNote] = useState(simulatorStages[0].note)
-  const [running, setRunning] = useState(false)
+function SkillHub() {
+  const [selectedModule, setSelectedModule] = useState(null)
 
   useEffect(() => {
-    if (!running) return undefined
+    if (selectedModule === null) return undefined
 
-    const timer = window.setTimeout(() => {
-      if (activeStage < simulatorStages.length - 1) {
-        const nextStage = activeStage + 1
-        setActiveStage(nextStage)
-        setSelectedNote(simulatorStages[nextStage].note)
-      } else {
-        setRunning(false)
-      }
-    }, activeStage === simulatorStages.length - 1 ? 1200 : 900)
+    const closeOnEscape = (event) => {
+      if (event.key === 'Escape') setSelectedModule(null)
+    }
 
-    return () => window.clearTimeout(timer)
-  }, [activeStage, running])
-
-  const selectStage = (index, note = simulatorStages[index].note) => {
-    setRunning(false)
-    setActiveStage(index)
-    setSelectedNote(note)
-  }
-
-  const runSequence = () => {
-    setActiveStage(0)
-    setSelectedNote(simulatorStages[0].note)
-    setRunning(true)
-  }
+    document.body.classList.add('modal-open')
+    window.addEventListener('keydown', closeOnEscape)
+    window.requestAnimationFrame(() => document.querySelector('.hub-close')?.focus())
+    return () => {
+      document.body.classList.remove('modal-open')
+      window.removeEventListener('keydown', closeOnEscape)
+    }
+  }, [selectedModule])
 
   return (
-    <section className="simulator" aria-labelledby="simulator-title">
-      <div className="simulator-header">
-        <div>
-          <span className="simulator-kicker">INTERACTIVE TECHNICAL OVERVIEW</span>
-          <h2 id="simulator-title">Mechatronics Control Simulator</h2>
+    <>
+      <section className="skill-hub" aria-labelledby="skill-hub-title">
+        <div className="skill-hub-heading">
+          <span>INTERACTIVE TECHNICAL OVERVIEW</span>
+          <h2 id="skill-hub-title">Mechatronics Skill Hub</h2>
+          <p>Select a module to view training details and related tools.</p>
         </div>
-        <div className={running ? 'simulator-status running' : 'simulator-status'}>
-          <i />
-          {running ? `STEP ${activeStage + 1} / 4` : 'READY'}
+        <div className="skill-hub-grid">
+          {skillHubModules.map(({ title, icon: Icon, description }, index) => (
+            <button
+              className="hub-module"
+              type="button"
+              key={title}
+              onClick={() => setSelectedModule(index)}
+              aria-haspopup="dialog"
+            >
+              <span className="hub-module-number">0{index + 1}</span>
+              <span className="hub-icon"><Icon aria-hidden="true" /></span>
+              <strong>{title}</strong>
+              <span className="hub-summary">{description}</span>
+              <span className="hub-open">View module <ArrowUpRight size={12} /></span>
+            </button>
+          ))}
         </div>
-      </div>
+      </section>
 
-      <div className="simulator-flow" aria-label="Sensors and inputs flow to PLC logic, outputs and actuators, then testing and troubleshooting">
-        {simulatorStages.map(({ title, shortTitle, icon: Icon, items }, index) => (
-          <div className="simulator-stage-wrap" key={title}>
-            <article className={`simulator-stage ${activeStage === index ? 'active' : ''}`}>
-              <button
-                className="stage-heading"
-                type="button"
-                onClick={() => selectStage(index)}
-                aria-pressed={activeStage === index}
-              >
-                <span className="stage-index">0{index + 1}</span>
-                <Icon aria-hidden="true" />
-                <span>
-                  <small>{shortTitle}</small>
-                  <strong>{title}</strong>
-                </span>
-              </button>
-              <div className="stage-items">
-                {items.map(([label, note]) => (
-                  <button
-                    type="button"
-                    key={label}
-                    onClick={() => selectStage(index, note)}
-                  >
-                    {label}
-                  </button>
-                ))}
+      {selectedModule !== null && (
+        <div className="hub-overlay" role="presentation" onMouseDown={() => setSelectedModule(null)}>
+          <section
+            className="hub-dialog"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="hub-dialog-title"
+            onMouseDown={(event) => event.stopPropagation()}
+          >
+            <button className="hub-close" type="button" onClick={() => setSelectedModule(null)} aria-label="Close skill details">
+              <X />
+            </button>
+            <div className="hub-dialog-heading">
+              {(() => {
+                const Icon = skillHubModules[selectedModule].icon
+                return <Icon aria-hidden="true" />
+              })()}
+              <div>
+                <span>TRAINING MODULE / 0{selectedModule + 1}</span>
+                <h2 id="hub-dialog-title">{skillHubModules[selectedModule].title}</h2>
               </div>
-            </article>
-            {index < simulatorStages.length - 1 && (
-              <div className={`flow-connector ${activeStage > index || (running && activeStage === index) ? 'passed' : ''}`} aria-hidden="true">
-                <i />
-                <ChevronRight />
+            </div>
+            <p className="hub-dialog-description">{skillHubModules[selectedModule].description}</p>
+            <div className="hub-dialog-body">
+              <div>
+                <h3>Hands-on foundation</h3>
+                <ul>
+                  {skillHubModules[selectedModule].bullets.map((bullet) => (
+                    <li key={bullet}><CheckCircle2 />{bullet}</li>
+                  ))}
+                </ul>
               </div>
-            )}
-          </div>
-        ))}
-      </div>
-
-      <div className="simulator-readout">
-        <div className="readout-label">
-          <span>SKILL NOTE</span>
-          <b>0{activeStage + 1}</b>
+              <div>
+                <h3>Related skills</h3>
+                <div className="hub-tags">
+                  {skillHubModules[selectedModule].related.map((skill) => <span key={skill}>{skill}</span>)}
+                </div>
+              </div>
+            </div>
+            <button className="hub-back" type="button" onClick={() => setSelectedModule(null)}>
+              Back to Skill Hub
+            </button>
+          </section>
         </div>
-        <p aria-live="polite">{selectedNote}</p>
-      </div>
-
-      <button className="run-sequence" type="button" onClick={runSequence} disabled={running}>
-        <Play size={14} fill="currentColor" />
-        {running ? 'Sequence Running' : 'Start Sequence'}
-      </button>
-    </section>
+      )}
+    </>
   )
 }
 
@@ -366,26 +390,45 @@ function App() {
           <div className="hero-copy">
             <div className="availability"><i /> AVAILABLE FOR INTERNSHIPS & ENTRY-LEVEL ROLES</div>
             <p className="hero-kicker">MECHATRONICS <span>/</span> AUTOMATION <span>/</span> MAINTENANCE</p>
-            <div className="hero-targets">
-              <span>Controls Technician</span>
-              <span>Instrumentation Technician</span>
-            </div>
             <h1>Yousif<br /><span>Al-Abbasi.</span></h1>
-            <p className="hero-title">Mechatronics Student <span>|</span> Automation <span>|</span> Industrial Maintenance <span>|</span> Controls <span>|</span> Instrumentation</p>
+            <p className="hero-title">Mechatronics Student focused on Automation, Controls, and Industrial Maintenance</p>
+            <p className="hero-specialties">PLC Control <span>•</span> Instrumentation <span>•</span> Motor Controls <span>•</span> Robotics <span>•</span> Fluid Power <span>•</span> Troubleshooting</p>
             <p className="hero-intro">
-              Hands-on mechatronics student focused on PLCs, motor controls, robotics, process instrumentation,
-              pneumatics, hydraulics, troubleshooting, and industrial automation.
+              Hands-on mechatronics student with training in PLCs, motor controls, robotics, process instrumentation,
+              pneumatics, hydraulics, electrical troubleshooting, schematics, and industrial automation.
             </p>
+            <div className="hero-targets" aria-label="Target roles">
+              {['Mechatronics Technician', 'Automation Technician', 'Controls Technician', 'Instrumentation Technician', 'Maintenance Technician', 'Electro-Mechanical Technician'].map((role) => (
+                <span key={role}>{role}</span>
+              ))}
+            </div>
             <div className="hero-actions">
               <a className="button primary" href="#projects">View Projects <ArrowDown size={17} /></a>
-              <a className="button secondary" href="/resume.pdf" download="Yousif-Al-Abbasi-Resume.pdf">Resume <Download size={17} /></a>
+              <a className="button secondary" href="/resume.pdf" target="_blank" rel="noreferrer">View Resume <ArrowUpRight size={17} /></a>
+              <a className="button secondary" href="/resume.pdf" download="Yousif-Al-Abbasi-Resume.pdf">Download Resume <Download size={17} /></a>
               <a className="text-link" href="#contact">Contact Me <ArrowUpRight size={16} /></a>
             </div>
           </div>
-          <MechatronicsSimulator />
+          <SkillHub />
           <div className="hero-meta">
             <span>BASED IN SNELLVILLE, GA</span>
             <span className="scroll-cue">SCROLL TO EXPLORE <ArrowDown size={14} /></span>
+          </div>
+        </section>
+
+        <section className="what-i-bring" aria-labelledby="what-i-bring-title">
+          <div className="bring-heading">
+            <span className="eyebrow"><span>//</span> RECRUITER SUMMARY</span>
+            <h2 id="what-i-bring-title">What I Bring</h2>
+          </div>
+          <div className="bring-grid">
+            {recruiterHighlights.map(([title, text], index) => (
+              <article className="bring-card reveal" key={title}>
+                <span>0{index + 1}</span>
+                <h3>{title}</h3>
+                <p>{text}</p>
+              </article>
+            ))}
           </div>
         </section>
 
@@ -455,6 +498,7 @@ function App() {
                 <h3>{project.title}</h3>
                 <p className="project-description">{project.description}</p>
                 <ul>{project.details.map((detail) => <li key={detail}><CheckCircle2 size={15} />{detail}</li>)}</ul>
+                <p className="project-role"><span>ROLE FIT</span>{project.roleFit}</p>
                 <div className="tags">{project.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
               </article>
             ))}
