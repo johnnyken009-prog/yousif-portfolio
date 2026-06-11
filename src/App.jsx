@@ -118,7 +118,7 @@ const skillProjectLinks = {
   'motor-controls': ['Motor Controls Lab', 'Electrical Controls Lab'],
   'fluid-power': ['Pneumatics / Hydraulics Lab', 'Fluid Power Training'],
   'robotics-automation': ['Robotics Lab', 'Robotics Training'],
-  'troubleshooting-tools': ['Electrical Troubleshooting & Schematics', 'Diagnostic Lab'],
+  'industrial-mechanics': ['Electrical Troubleshooting & Schematics', 'Industrial Mechanics / Diagnostic Lab'],
 }
 
 function SectionHeading({ eyebrow, title, text }) {

@@ -161,15 +161,24 @@ function revealSection(targetId) {
 export default function SkillHub3D() {
   const [focusModule, setFocusModule] = useState(null)
   const [focusRevision, setFocusRevision] = useState(0)
+  const resetTimer = useRef()
+
+  useEffect(() => () => window.clearTimeout(resetTimer.current), [])
 
   const navigateToModule = useCallback((module) => {
+    window.clearTimeout(resetTimer.current)
     setFocusModule(module)
     setFocusRevision((revision) => revision + 1)
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     window.setTimeout(() => revealSection(module.sectionId), reducedMotion ? 0 : 850)
+    resetTimer.current = window.setTimeout(() => {
+      setFocusModule(null)
+      setFocusRevision((revision) => revision + 1)
+    }, reducedMotion ? 50 : 1400)
   }, [])
 
   const navigateToUtility = useCallback((target) => {
+    window.clearTimeout(resetTimer.current)
     setFocusModule(null)
     setFocusRevision((revision) => revision + 1)
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
