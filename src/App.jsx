@@ -58,15 +58,15 @@ const projects = [
     number: '01',
     icon: Cable,
     title: 'PLC / MPS Automation System',
-    category: 'Automation Lab & Documentation',
+    category: 'PLC Programming & System Integration',
     description:
-      'Documented pneumatic functionality across five Modular Production System stations, connecting physical devices to their electrical signals and PLC-controlled logic.',
+      'Wrote PLC logic for five Modular Production System stations, then returned to the first station and integrated its program with classmates’ logic on the other four so the complete system operated together.',
     details: [
-      'Mapped cylinders, valves, sensors, actuators, and air supply',
-      'Explained each device’s function and operating requirements',
-      'Outlined practical testing and troubleshooting steps',
+      'Programmed and tested the sequence logic required by each MPS station',
+      'Integrated the first station with four classmates’ station programs for coordinated operation',
+      'Created reports alongside the programming work to document logic, functions, testing, and troubleshooting',
     ],
-    tags: ['Pneumatics', 'PLC Logic', 'Documentation', 'MPS'],
+    tags: ['PLC Logic', 'Sequence Control', 'System Integration', 'MPS'],
     roleFit: 'Automation / PLC Technician',
     featured: true,
   },
@@ -128,7 +128,7 @@ const projects = [
 ]
 
 const skillProjectLinks = {
-  'plc-control': ['PLC / MPS Automation System', 'Automation Lab & Documentation'],
+  'plc-control': ['PLC / MPS Automation System', 'PLC Programming & System Integration'],
   instrumentation: ['Process Instrumentation Trainer', 'Instrumentation Lab'],
   'motor-controls': ['Motor Controls Lab', 'Electrical Controls Lab'],
   'fluid-power': ['Pneumatics / Hydraulics Lab', 'Fluid Power Training'],
