@@ -1,6 +1,6 @@
 # Yousif Al-Abbasi Portfolio
 
-A responsive recruiter-facing portfolio for a mechatronics engineering student, built with React and Vite.
+A responsive recruiter-facing portfolio for a mechatronics student focused on automation, controls, instrumentation, industrial maintenance, and electro-mechanical work.
 
 ## Run locally
 
@@ -19,8 +19,12 @@ npm run build
 
 - The general mechatronics resume downloaded by the site is stored at `public/resume.pdf`.
 - LinkedIn and GitHub links are configured near the bottom of `src/App.jsx`.
-- Edit project, skill, work, or education content in the data arrays at the top of `src/App.jsx`.
-- No profile photo is currently used; the technical control-panel hero remains the primary visual.
+- Edit project, work, education, and recruiter-summary content in `src/App.jsx`.
+- Edit the six technical skill chapters and their 3D positions in `src/components/skillHubData.js`.
+- The interactive workbench scene is implemented in `src/components/SkillHub3D.jsx` and `src/components/SkillModule3D.jsx`.
+- The 3D workbench is lazy-loaded so the recruiter-facing content can render before the Three.js bundle.
+- Mobile and lower-power devices use reduced pixel density and disable scene shadows and panning.
+- No profile photo is currently used; the interactive mechatronics workbench is the primary hero visual.
 - Replace `public/og-image.svg` if you want a different social sharing preview.
 
 ## Deploy and connect `yousif.cc`

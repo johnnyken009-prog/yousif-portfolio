@@ -9,6 +9,7 @@ export const skillHubModules = [
     equipment: 'plc',
     icon: Cpu,
     position: [-2.65, 0.18, -0.85],
+    labelPosition: [-0.08, 2.32, 0.5],
     accent: '#9bea63',
     description: 'Hands-on PLC training focused on industrial inputs, outputs, logic, and troubleshooting.',
     bullets: [
@@ -30,6 +31,7 @@ export const skillHubModules = [
     equipment: 'instrumentation',
     icon: SlidersHorizontal,
     position: [0, 0.2, -1.5],
+    labelPosition: [0.25, 2.72, 0.48],
     accent: '#8fb9aa',
     description: 'Process instrumentation training using equipment that measures real industrial variables.',
     bullets: [
@@ -50,6 +52,7 @@ export const skillHubModules = [
     equipment: 'motor',
     icon: Zap,
     position: [2.45, 0.18, -0.75],
+    labelPosition: [0.1, 2.25, 0.48],
     accent: '#9bea63',
     description: 'Hands-on training with electrical control circuits and industrial motor control components.',
     bullets: [
@@ -70,6 +73,7 @@ export const skillHubModules = [
     equipment: 'fluid',
     icon: CircleGauge,
     position: [2.15, 0.18, 1.35],
+    labelPosition: [0.45, 1.72, 0.55],
     accent: '#8fb9aa',
     description: 'Training with fluid power systems used in automation and industrial equipment.',
     bullets: [
@@ -90,6 +94,7 @@ export const skillHubModules = [
     equipment: 'robot',
     icon: Bot,
     position: [-1.45, 0.18, 1.2],
+    labelPosition: [-0.5, 2.68, 0.42],
     accent: '#9bea63',
     description: 'Automation and robotics training connected to industrial motion and sequencing.',
     bullets: [
@@ -107,9 +112,10 @@ export const skillHubModules = [
     sectionId: 'skill-industrial-mechanics',
     title: 'Industrial Mechanics',
     shortLabel: 'Mechanics',
-    equipment: 'tools',
+    equipment: 'mechanics',
     icon: Wrench,
     position: [0.25, 0.2, 2.05],
+    labelPosition: [0.1, 1.92, 0.52],
     accent: '#8fb9aa',
     description: 'Hands-on industrial mechanics foundation using maintenance tools, schematics, measurement equipment, and systematic troubleshooting.',
     bullets: [

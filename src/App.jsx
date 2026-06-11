@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react'
-import SkillHub3D from './components/SkillHub3D'
+import { lazy, Suspense, useEffect, useState } from 'react'
 import { skillHubModules } from './components/skillHubData'
 import {
   ArrowDown,
@@ -21,6 +20,8 @@ import {
   Zap,
 } from 'lucide-react'
 
+const SkillHub3D = lazy(() => import('./components/SkillHub3D'))
+
 const navItems = [
   ['About', 'about'],
   ['Skills', 'skills'],
@@ -35,7 +36,21 @@ const recruiterHighlights = [
   ['Hands-on technical training', 'Coursework and labs across electrical, mechanical, fluid-power, robotics, and automation systems.'],
   ['PLC and automation foundation', 'Exposure to Studio 5000 / Logix 5000, Ladder Logic, SFC, I/O, sensors, and actuators.'],
   ['Instrumentation and process measurement', 'Training equipment measuring flow, level, pressure, and temperature.'],
-  ['Troubleshooting mindset', 'Methodical use of schematics, test equipment, precision tools, and safe diagnostic steps.'],
+  ['Industrial mechanics mindset', 'Methodical use of schematics, precision tools, maintenance fundamentals, and safe troubleshooting steps.'],
+]
+
+const primaryTargetRoles = [
+  'Mechatronics Technician',
+  'Automation Technician',
+  'Controls Technician',
+  'Instrumentation Technician',
+]
+
+const secondaryTargetRoles = [
+  'Maintenance Technician',
+  'Electro-Mechanical Technician',
+  'PLC Technician',
+  'Machine Assembly Technician',
 ]
 
 const projects = [
@@ -162,6 +177,25 @@ function Header() {
   )
 }
 
+function SkillHubFallback() {
+  return (
+    <section className="skill-hub skill-hub-loading" aria-label="Loading interactive mechatronics workbench">
+      <div className="skill-hub-heading">
+        <span>GUIDED 3D PORTFOLIO NAVIGATION</span>
+        <h2>Mechatronics Workbench</h2>
+        <p>Preparing the interactive technical station.</p>
+      </div>
+      <div className="workbench-skeleton" aria-hidden="true">
+        <i /><i /><i /><i /><i /><i />
+        <span>Loading 3D workbench...</span>
+      </div>
+      <div className="skeleton-shortcuts" aria-hidden="true">
+        {['PLC', 'Instruments', 'Motors', 'Fluid Power', 'Robotics', 'Mechanics'].map((label) => <span key={label}>{label}</span>)}
+      </div>
+    </section>
+  )
+}
+
 function SkillChapters() {
   return (
     <section className="skill-chapters" id="skills" aria-label="Technical skill chapters">
@@ -236,24 +270,31 @@ function App() {
             <p className="hero-kicker">MECHATRONICS <span>/</span> AUTOMATION <span>/</span> MAINTENANCE</p>
             <h1>Yousif<br /><span>Al-Abbasi.</span></h1>
             <p className="hero-title">Mechatronics Student focused on Automation, Controls, and Industrial Maintenance</p>
-            <p className="hero-specialties">PLC Control <span>•</span> Instrumentation <span>•</span> Motor Controls <span>•</span> Robotics <span>•</span> Fluid Power <span>•</span> Troubleshooting</p>
+            <p className="hero-specialties">PLC Control <span>•</span> Instrumentation <span>•</span> Motor Controls <span>•</span> Robotics <span>•</span> Fluid Power <span>•</span> Industrial Mechanics</p>
             <p className="hero-intro">
               Hands-on mechatronics student with training in PLCs, motor controls, robotics, process instrumentation,
               pneumatics, hydraulics, electrical troubleshooting, schematics, and industrial automation.
             </p>
             <div className="hero-targets" aria-label="Target roles">
-              {['Mechatronics Technician', 'Automation Technician', 'Controls Technician', 'Instrumentation Technician', 'Maintenance Technician', 'Electro-Mechanical Technician', 'PLC Technician', 'Machine Assembly Technician'].map((role) => (
+              {primaryTargetRoles.map((role) => (
                 <span key={role}>{role}</span>
               ))}
             </div>
+            <p className="hero-role-more">Also targeting: {secondaryTargetRoles.join(' / ')}</p>
             <div className="hero-actions">
-              <a className="button primary" href="#projects">View Projects <ArrowDown size={17} /></a>
-              <a className="button secondary" href="/resume.pdf" target="_blank" rel="noreferrer">View Resume <ArrowUpRight size={17} /></a>
-              <a className="button secondary" href="/resume.pdf" download="Yousif-Al-Abbasi-Resume.pdf">Download Resume <Download size={17} /></a>
-              <a className="text-link" href="#contact">Contact Me <ArrowUpRight size={16} /></a>
+              <div className="hero-actions-main">
+                <a className="button primary" href="#projects">View Projects <ArrowDown size={17} /></a>
+                <a className="button secondary" href="/resume.pdf" target="_blank" rel="noreferrer">View Resume <ArrowUpRight size={17} /></a>
+              </div>
+              <div className="hero-actions-secondary">
+                <a href="/resume.pdf" download="Yousif-Al-Abbasi-Resume.pdf">Download Resume <Download size={15} /></a>
+                <a href="#contact">Contact Me <ArrowUpRight size={15} /></a>
+              </div>
             </div>
           </div>
-          <SkillHub3D />
+          <Suspense fallback={<SkillHubFallback />}>
+            <SkillHub3D />
+          </Suspense>
           <div className="hero-meta">
             <span>BASED IN SNELLVILLE, GA</span>
             <span className="scroll-cue">SCROLL TO EXPLORE <ArrowDown size={14} /></span>
@@ -283,16 +324,13 @@ function App() {
             <SectionHeading eyebrow="ABOUT ME" title={<>Built to understand<br />how things work.</>} />
             <div className="about-copy reveal">
               <p className="lead">
-                I&apos;m a mechatronics student who learns by doing: wiring circuits, tracing signals,
-                reading schematics, programming controls, and understanding the mechanics behind a system.
+                I&apos;m a mechatronics student who learns by tracing how signals, controls, and mechanical
+                components work together.
               </p>
               <p>
-                My hands-on training spans industrial automation, electrical troubleshooting, PLCs, motor
-                controls, process instrumentation, robotics, pneumatics and hydraulics, sensors, actuators,
-                precision instruments, and maintenance fundamentals. I have trained with equipment measuring
-                the four core process variables: flow, level, pressure, and temperature.
-                I approach equipment methodically: understand the process, isolate the issue, test safely, and
-                document the result.
+                My coursework and lab experience have taught me to read schematics, verify wiring, connect
+                sensors and actuators to control logic, and approach equipment problems methodically. I focus
+                on understanding the process first, testing safely, and documenting what I observe.
               </p>
               <p>
                 I&apos;m building toward a career as a maintenance, automation, PLC, controls, instrumentation,

@@ -93,18 +93,19 @@ function CameraDirector({ focusModule, focusRevision, controls }) {
   return null
 }
 
-function MechatronicsScene({ focusModule, focusRevision, onNavigate }) {
+function MechatronicsScene({ compactScene, focusModule, focusRevision, onNavigate }) {
   const controls = useRef()
 
   return (
     <>
-      <color attach="background" args={['#090d10']} />
-      <fog attach="fog" args={['#090d10', 11, 22]} />
-      <ambientLight intensity={0.7} />
-      <hemisphereLight intensity={0.8} color="#d8e0df" groundColor="#111719" />
-      <directionalLight position={[5, 8, 6]} intensity={2.2} color="#e6ecea" castShadow />
-      <pointLight position={[-4, 3, 2]} intensity={4} color="#87a69d" distance={10} />
-      <pointLight position={[3, 2, -2]} intensity={2.5} color="#9bea63" distance={7} />
+      <color attach="background" args={['#0b1012']} />
+      <fog attach="fog" args={['#0b1012', 14, 25]} />
+      <ambientLight intensity={1.05} />
+      <hemisphereLight intensity={1.15} color="#eef3f1" groundColor="#172022" />
+      <directionalLight position={[5, 8, 6]} intensity={2.8} color="#f1f5f3" castShadow />
+      <directionalLight position={[-5, 4, 3]} intensity={1.25} color="#91aaa5" />
+      <pointLight position={[-4, 3, 2]} intensity={5.5} color="#abc1bc" distance={12} />
+      <pointLight position={[3, 2, -2]} intensity={2.1} color="#9bea63" distance={7} />
 
       <group position={[0, -1.1, 0]}>
         <Workbench />
@@ -140,6 +141,7 @@ function MechatronicsScene({ focusModule, focusRevision, onNavigate }) {
         maxPolarAngle={Math.PI * 0.48}
         maxAzimuthAngle={Math.PI * 0.38}
         minAzimuthAngle={-Math.PI * 0.38}
+        enablePan={!compactScene}
         panSpeed={0.35}
         rotateSpeed={0.5}
         zoomSpeed={0.65}
@@ -161,6 +163,10 @@ function revealSection(targetId) {
 export default function SkillHub3D() {
   const [focusModule, setFocusModule] = useState(null)
   const [focusRevision, setFocusRevision] = useState(0)
+  const [compactScene] = useState(() => (
+    window.matchMedia('(max-width: 680px)').matches
+    || (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4)
+  ))
   const resetTimer = useRef()
 
   useEffect(() => () => window.clearTimeout(resetTimer.current), [])
@@ -193,9 +199,14 @@ export default function SkillHub3D() {
         <p>Choose a system and move directly into the matching technical chapter.</p>
       </div>
       <div className="skill-canvas" aria-label="Interactive 3D mechatronics portfolio navigation">
-        <Canvas shadows dpr={[1, 1.6]} camera={{ position: [7.6, 5.4, 9.2], fov: 38 }}>
+        <Canvas shadows={compactScene ? false : 'basic'} dpr={compactScene ? 1 : [1, 1.5]} camera={{ position: [7.6, 5.4, 9.2], fov: 38 }}>
           <Suspense fallback={<Html center><span className="canvas-loading">Loading 3D lab...</span></Html>}>
-            <MechatronicsScene focusModule={focusModule} focusRevision={focusRevision} onNavigate={navigateToModule} />
+            <MechatronicsScene
+              compactScene={compactScene}
+              focusModule={focusModule}
+              focusRevision={focusRevision}
+              onNavigate={navigateToModule}
+            />
           </Suspense>
         </Canvas>
         <div className="scene-callout">
